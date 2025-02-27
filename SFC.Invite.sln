@@ -60,8 +60,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hooks", "hooks", "{8FB8D310-A7F0-46E8-9D93-C1C33DE50E88}"
 	ProjectSection(SolutionItems) = preProject
-		.husky\hooks\pre-commit = .husky\hooks\pre-commit
-		.husky\hooks\pre-push = .husky\hooks\pre-push
+		.husky\pre-commit = .husky\pre-commit
+		.husky\pre-push = .husky\pre-push
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFC.Invite.Application.UnitTests", "tests\SFC.Invite.Application.UnitTests\SFC.Invite.Application.UnitTests.csproj", "{EB907C14-873C-4210-9003-DB4E034B9DD3}"

@@ -5,7 +5,7 @@
     <DocumentationFile>SFC.Invite.Api.xml</DocumentationFile>
     <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
     <HUSKY>True</HUSKY>
-    <UserSecretsId>bb4d4cda-f13b-48ee-9610-46d440cdff1d</UserSecretsId>
+    <UserSecretsId>ba0164db-259b-4547-b85f-406cf8594091</UserSecretsId>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
