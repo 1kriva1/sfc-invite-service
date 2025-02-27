@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>SFC.Invite.Contracts</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Andrii Kryvoruk</Authors>
+    <Company>SFC</Company>
+    <Product>SFC</Product>
+    <PackageTags>Street Football Club;SFC;Invite;Contracts</PackageTags>
+    <Description>
+      Contracts from Invite service for SFC project
+    </Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Enums\sorting_direction.proto" />
+    <None Remove="Headers\auditable_header.proto" />
+    <None Remove="Headers\pagination_header.proto" />
+    <None Remove="Messages\Find\Filters\get_invites_filter.proto" />
+    <None Remove="Messages\Find\get_invites_request.proto" />
+    <None Remove="Messages\Find\get_invites_response.proto" />
+    <None Remove="Messages\Get\get_invite_request.proto" />
+    <None Remove="Messages\Get\get_invite_response.proto" />
+    <None Remove="Models\Common\pagination.proto" />
+    <None Remove="Models\Common\range_limit.proto" />
+    <None Remove="Models\Common\sorting.proto" />
+    <None Remove="Models\Invite\invite.proto" />
+    <None Remove="Services\invite_service.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.29.3" />
+    <PackageReference Include="Grpc.Core.Api" Version="2.67.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.69.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Enums\sorting_direction.proto" />
+    <Protobuf Include="Headers\auditable_header.proto" />
+    <Protobuf Include="Headers\pagination_header.proto" />
+    <Protobuf Include="Messages\Find\Filters\get_invites_filter.proto" />
+    <Protobuf Include="Messages\Find\get_invites_request.proto" />
+    <Protobuf Include="Messages\Find\get_invites_response.proto" />
+    <Protobuf Include="Messages\Get\get_invite_request.proto" />
+    <Protobuf Include="Messages\Get\get_invite_response.proto" />
+    <Protobuf Include="Models\Common\pagination.proto" />
+    <Protobuf Include="Models\Common\range_limit.proto" />
+    <Protobuf Include="Models\Common\sorting.proto" />
+    <Protobuf Include="Models\Invite\invite.proto" />
+    <Protobuf Include="Services\invite_service.proto" />
+  </ItemGroup>
+
+</Project>

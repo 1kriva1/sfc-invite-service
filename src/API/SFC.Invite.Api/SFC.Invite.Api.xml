@@ -1,0 +1,307 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SFC.Invite.Api</name>
+    </assembly>
+    <members>
+        <member name="M:SFC.Invite.Api.Controllers.InvitesController.CreateInviteAsync(SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteRequest)">
+            <summary>
+            Create new invite.
+            </summary>
+            <param name="request">Create invite request.</param>
+            <returns>An ActionResult of type CreateInviteResponse</returns>
+            <response code="201">Returns **new** created invite.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.InvitesController.UpdateInviteAsync(System.Int64,SFC.Invite.Api.Infrastructure.Models.Invites.Update.UpdateInviteRequest)">
+            <summary>
+            Update existing invite.
+            </summary>
+            <param name="id">Invite unique identifier.</param>
+            <param name="request">Update invite request.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite updated **successfully**.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.InvitesController.GetInviteAsync(System.Int64)">
+            <summary>
+            Return invite model by unique identifier.
+            </summary>
+            <param name="id">Invite unique identifier.</param>
+            <returns>An ActionResult of type GetInviteResponse</returns>
+            <response code="200">Returns invite model.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="404">Returns when invite **not found** by unique identifier.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.InvitesController.GetInvitesAsync(SFC.Invite.Api.Infrastructure.Models.Invites.Find.GetInvitesRequest)">
+            <summary>
+            Return list of invitemultiple
+            </summary>
+            <param name="request">Get invitemultiple request.</param>
+            <returns>An ActionResult of type GetInvitesResponse</returns>
+            <response code="200">Returns list of invitemultiple with pagination header.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Infrastructure.Extensions.GrpcExtensions.MapInternalService(Microsoft.AspNetCore.Builder.GrpcServiceEndpointConventionBuilder,System.String)">
+            <summary>
+            Without RequireHost WebApi and Grpc not working together
+            RequireHost distinguish webapi and grpc by port value
+            Also required Kestrel endpoint configuration in appSettings
+            </summary>
+            <param name="builder"></param>
+            <param name="url"></param>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Base.BaseErrorResponse">
+            <summary>
+            **Base** response model with **errors**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Base.BaseErrorResponse.Errors">
+            <summary>
+            Response result errors in key/value representation.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Base.BaseListResponse`1">
+            <summary>
+            **Base** response model with **list** of items.
+            </summary>
+            <typeparam name="T">Any type of model.</typeparam>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Base.BaseListResponse`1.Items">
+            <summary>
+            **List** of items.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Base.BasePaginationRequest`1">
+            <summary>
+            **Base** pagination request.
+            </summary>
+            <typeparam name="T">Any type of filter model.</typeparam>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Base.BasePaginationRequest`1.Pagination">
+            <summary>
+            Pagination model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Base.BasePaginationRequest`1.Sorting">
+            <summary>
+            Sorting model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Base.BasePaginationRequest`1.Filter">
+            <summary>
+            Generic filter model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Base.BaseResponse">
+            <summary>
+            **Base** response model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Base.BaseResponse.Success">
+            <summary>
+            Determined if response has **success** result.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Base.BaseResponse.Message">
+            <summary>
+            Describe response **result**.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Common.RangeLimitModel`1">
+            <summary>
+            **Generic** range limit model.
+            </summary>
+            <typeparam name="T">Any type that can be **compared**.</typeparam>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Common.RangeLimitModel`1.From">
+            <summary>
+            Range **from**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Common.RangeLimitModel`1.To">
+            <summary>
+            Range **to**.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Common.SortingModel">
+            <summary>
+            **Sorting** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Common.SortingModel.Name">
+            <summary>
+            **Name of property** by which sorting will be performed.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Common.SortingModel.Direction">
+            <summary>
+            Sorting **direction** (ascending or descending).
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Common.BaseInviteModel">
+            <summary>
+            **Base** invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Common.InviteModel">
+            <summary>
+            Invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Common.InviteModel.Id">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteModel">
+            <summary>
+            **Create** invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteRequest">
+            <summary>
+            **Create** Invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteRequest.Invite">
+            <summary>
+            Invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteResponse">
+            <summary>
+            **Create** invite response model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteResponse.Invite">
+            <summary>
+            Invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Find.Filters.GetInvitesFilterModel">
+            <summary>
+            Get invitemultiple filter model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Find.GetInvitesRequest">
+            <summary>
+            **Get** invitemultiple request.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Find.GetInvitesResponse">
+            <summary>
+            **Get** invitemultiple response.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Get.GetInviteResponse">
+            <summary>
+            **Get** invite response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Get.GetInviteResponse.Invite">
+            <summary>
+            Invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Update.UpdateInviteModel">
+            <summary>
+            **Update** invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Update.UpdateInviteRequest">
+            <summary>
+            **Update** invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Update.UpdateInviteRequest.Invite">
+            <summary>
+            Invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Pagination.PageLinksModel">
+            <summary>
+            **Pagination** links model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageLinksModel.FirstPage">
+            <summary>
+            Link to first page.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageLinksModel.LastPage">
+            <summary>
+            Link to last page.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageLinksModel.NextPage">
+            <summary>
+            Link to next page.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageLinksModel.PreviousPage">
+            <summary>
+            Link to previous page.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Pagination.PageMetadataModel">
+            <summary>
+            **Pagination** metadata model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageMetadataModel.CurrentPage">
+            <summary>
+            **Current** page.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageMetadataModel.TotalPages">
+            <summary>
+            Total **pages** count.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageMetadataModel.PageSize">
+            <summary>
+            Page **size**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageMetadataModel.TotalCount">
+            <summary>
+            Total **items** count.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageMetadataModel.HasPreviousPage">
+            <summary>
+            Describe if **previous** page **exist** for defined filters and page size.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageMetadataModel.HasNextPage">
+            <summary>
+            Describe if **next** page **exist** for defined filters and page size.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PageMetadataModel.Links">
+            <summary>
+            Links model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Pagination.PaginationModel">
+            <summary>
+            **Pagination** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PaginationModel.Page">
+            <summary>
+            Requested **page**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PaginationModel.Size">
+            <summary>
+            Requested page **size**.
+            </summary>
+        </member>
+    </members>
+</doc>
