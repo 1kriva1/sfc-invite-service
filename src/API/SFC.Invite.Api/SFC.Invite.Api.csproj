@@ -4,7 +4,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>SFC.Invite.Api.xml</DocumentationFile>
     <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
-    <HUSKY>False</HUSKY>
+    <HUSKY>True</HUSKY>
     <UserSecretsId>bb4d4cda-f13b-48ee-9610-46d440cdff1d</UserSecretsId>
   </PropertyGroup>
   
