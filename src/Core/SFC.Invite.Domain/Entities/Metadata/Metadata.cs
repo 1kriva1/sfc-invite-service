@@ -6,4 +6,6 @@ public class Metadata
     public required MetadataTypeEnum Type { get; set; }
 
     public required MetadataStateEnum State { get; set; }
+
+    public required MetadataDomainEnum Domain { get; set; }
 }

@@ -26,6 +26,8 @@ public class DataDbContext(
 
     public IQueryable<WorkingFoot> WorkingFoots => Set<WorkingFoot>();
 
+    public IQueryable<Shirt> Shirts => Set<Shirt>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         ArgumentNullException.ThrowIfNull(modelBuilder);
@@ -57,6 +59,8 @@ public class DataDbContext(
         modelBuilder.ApplyConfiguration(new StatTypeConfiguration());
 
         modelBuilder.ApplyConfiguration(new WorkingFootConfiguration());
+
+        modelBuilder.ApplyConfiguration(new ShirtConfiguration());
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

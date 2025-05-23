@@ -1,10 +1,14 @@
-﻿using Google.Rpc;
-using Grpc.Core.Interceptors;
+﻿using Google.Protobuf.WellKnownTypes;
+using Google.Rpc;
+
 using Grpc.Core;
+using Grpc.Core.Interceptors;
+
 using Microsoft.Extensions.Logging;
-using Google.Protobuf.WellKnownTypes;
-using Status = Google.Rpc.Status;
+
 using SFC.Invite.Application.Common.Exceptions;
+
+using Status = Google.Rpc.Status;
 
 namespace SFC.Invite.Infrastructure.Interceptors.Grpc.Server;
 public class ServerExceptionInterceptor(ILogger<ServerExceptionInterceptor> logger) : Interceptor
@@ -161,7 +165,7 @@ public class ServerExceptionInterceptor(ILogger<ServerExceptionInterceptor> logg
     /// <returns></returns>
     private static Metadata CreateTrailers()
     {
-        Metadata trailers = new Metadata();
+        Metadata trailers = [];
         return trailers;
     }
 

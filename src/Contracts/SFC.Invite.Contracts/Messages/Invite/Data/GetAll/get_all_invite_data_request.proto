@@ -1,0 +1,7 @@
+﻿syntax = "proto3";
+
+package sfc_invite;
+
+option csharp_namespace = "SFC.Invite.Contracts.Messages.Invite.Data.GetAll";
+
+message GetAllInviteDataRequest{}

@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+using SFC.Invite.Domain.Entities.Identity.General;
+using SFC.Invite.Domain.Entities.Player.General;
 using SFC.Invite.Infrastructure.Persistence.Configurations.Base;
-using SFC.Invite.Domain.Entities.Player;
 using SFC.Invite.Infrastructure.Persistence.Constants;
-using SFC.Invite.Domain.Entities.Identity;
 
 namespace SFC.Invite.Infrastructure.Persistence.Configurations.Player;
 public class PlayerConfiguration : AuditableReferenceEntityConfiguration<PlayerEntity, long>

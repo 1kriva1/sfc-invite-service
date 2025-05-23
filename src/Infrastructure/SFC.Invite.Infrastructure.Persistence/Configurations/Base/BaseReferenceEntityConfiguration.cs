@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SFC.Invite.Domain.Common;
 
 namespace SFC.Invite.Infrastructure.Persistence.Configurations.Base;
-public abstract class BaseReferenceEntityConfiguration<TEntity, TID> : IEntityTypeConfiguration<TEntity>
-    where TEntity : BaseEntity<TID>
-    where TID : struct
+public abstract class BaseReferenceEntityConfiguration<TEntity, TId> : IEntityTypeConfiguration<TEntity>
+    where TEntity : BaseEntity<TId>
+    where TId : struct
 {
     public virtual void Configure(EntityTypeBuilder<TEntity> builder)
     {

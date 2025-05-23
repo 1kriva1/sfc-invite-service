@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore;
+
+using SFC.Invite.Application.Common.Constants;
+using SFC.Invite.Application.Common.Exceptions;
 using SFC.Invite.Application.Interfaces.Reference;
 using SFC.Invite.Domain.Common.Interfaces;
-using SFC.Invite.Application.Common.Exceptions;
-using SFC.Invite.Application.Common.Constants;
+using SFC.Invite.Infrastructure.Persistence.Extensions;
 
 namespace SFC.Invite.Infrastructure.Persistence.Interceptors;
 public class PlayerEntitySaveChangesInterceptor(IPlayerReference playerReference) : SaveChangesInterceptor
@@ -34,18 +36,18 @@ public class PlayerEntitySaveChangesInterceptor(IPlayerReference playerReference
 
         foreach (EntityEntry<IPlayerEntity> entry in entries)
         {
-            if (entry.Entity.Player is null)
+            if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
             {
-                Task<PlayerEntity> player = GetPlayer(entry.Entity.PlayerId, cancellationToken);
-
-                // just to check if player exist
-                entry.Entity.Player = player.Result;
-                context.Entry<PlayerEntity>(entry.Entity.Player).State = EntityState.Unchanged;
+                if (entry.Entity.Player is null)
+                {
+                    Task<PlayerEntity> player = GetPlayerAsync(entry.Entity.PlayerId, cancellationToken);
+                    entry.SetReference(context, player.Result);
+                }
             }
         }
     }
 
-    private async Task<PlayerEntity> GetPlayer(long id, CancellationToken cancellationToken = default)
+    private async Task<PlayerEntity> GetPlayerAsync(long id, CancellationToken cancellationToken = default)
     {
         return await _playerReference.GetAsync(id, cancellationToken).ConfigureAwait(true)
                     ?? throw new NotFoundException(Localization.PlayerNotFound);

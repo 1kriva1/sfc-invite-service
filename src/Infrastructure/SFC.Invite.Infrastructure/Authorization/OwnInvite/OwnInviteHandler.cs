@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-using SFC.Invite.Application.Interfaces.Persistence.Repository.Invite;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Invite.Team.Player;
 using SFC.Invite.Infrastructure.Extensions;
 
 namespace SFC.Invite.Infrastructure.Authorization.OwnInvite;
-public class OwnInviteHandler(IInviteRepository inviteRepository, IHttpContextAccessor httpContextAccessor)
+public class OwnInviteHandler(ITeamPlayerInviteRepository inviteRepository, IHttpContextAccessor httpContextAccessor)
     : AuthorizationHandler<OwnInviteRequirement>
 {
-    private readonly IInviteRepository _inviteRepository = inviteRepository;
+    private readonly ITeamPlayerInviteRepository _inviteRepository = inviteRepository;
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, OwnInviteRequirement requirement)

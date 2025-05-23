@@ -1,13 +1,17 @@
 ﻿using SFC.Invite.Application.Interfaces.Cache;
+using SFC.Invite.Application.Interfaces.Invite.Data;
+using SFC.Invite.Application.Interfaces.Invite.Data.Models;
 
 namespace SFC.Invite.Infrastructure.Services.Cache;
-public class RefreshCacheService(ICache cache) : IRefreshCache
+public class RefreshCacheService(ICache cache, IInviteDataService inviteDataService) : IRefreshCache
 {
     private readonly ICache _cache = cache;
+    private readonly IInviteDataService _inviteDataService = inviteDataService;
 
-    public Task RefreshAsync(CancellationToken token = default)
+    public async Task RefreshAsync(CancellationToken token = default)
     {
-        return Task.CompletedTask;
+        GetAllInviteDataModel model = await _inviteDataService.GetAllInviteDataAsync().ConfigureAwait(false);
+        await RefreshAsync(model.InviteStatuses, token).ConfigureAwait(false);
     }
 
     private Task RefreshAsync<T>(IEnumerable<T> entities, CancellationToken cancellationToken = default)

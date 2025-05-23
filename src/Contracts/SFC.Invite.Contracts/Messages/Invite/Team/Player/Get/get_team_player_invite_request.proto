@@ -1,0 +1,12 @@
+﻿syntax = "proto3";
+
+package sfc_invite;
+
+option csharp_namespace = "SFC.Invite.Contracts.Messages.Invite.Team.Player.Get";
+
+message GetTeamPlayerInviteRequest
+{
+    int64 id = 1;
+    int64 team_id = 2;
+    int64 player_id = 3;
+}

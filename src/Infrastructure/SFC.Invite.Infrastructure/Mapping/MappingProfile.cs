@@ -2,17 +2,31 @@
 
 using Google.Protobuf.WellKnownTypes;
 
+using SFC.Invite.Application.Common.Dto.Identity;
+using SFC.Invite.Application.Common.Dto.Player.General;
+using SFC.Invite.Application.Common.Dto.Team.General;
+using SFC.Invite.Application.Common.Dto.Team.Player;
+using SFC.Invite.Application.Common.Extensions;
 using SFC.Invite.Application.Common.Mappings.Base;
 using SFC.Invite.Application.Features.Data.Commands.Reset;
-using SFC.Invite.Application.Common.Extensions;
+using SFC.Invite.Application.Features.Data.Common.Dto;
 using SFC.Invite.Application.Features.Identity.Commands.Create;
 using SFC.Invite.Application.Features.Identity.Commands.CreateRange;
-using SFC.Invite.Application.Common.Dto.Identity;
-using SFC.Invite.Application.Features.Data.Common.Dto;
 using SFC.Invite.Application.Features.Player.Commands.Create;
-using SFC.Invite.Application.Features.Player.Commands.Update;
 using SFC.Invite.Application.Features.Player.Commands.CreateRange;
-using SFC.Invite.Application.Common.Dto.Player.General;
+using SFC.Invite.Application.Features.Player.Commands.Update;
+using SFC.Invite.Application.Features.Team.Data.Commands.Reset;
+using SFC.Invite.Application.Features.Team.Data.Common.Dto;
+using SFC.Invite.Application.Features.Team.General.Commands.Create;
+using SFC.Invite.Application.Features.Team.General.Commands.CreateRange;
+using SFC.Invite.Application.Features.Team.General.Commands.Update;
+using SFC.Invite.Application.Features.Team.Player.Commands.Create;
+using SFC.Invite.Application.Features.Team.Player.Commands.CreateRange;
+using SFC.Invite.Application.Features.Team.Player.Commands.Update;
+using SFC.Invite.Domain.Entities.Invite.Data;
+using SFC.Invite.Messages.Commands.Team.Data;
+using SFC.Invite.Messages.Events.Invite.Team.Player;
+using SFC.Invite.Messages.Models.Data;
 
 namespace SFC.Invite.Infrastructure.Mapping;
 public class MappingProfile : BaseMappingProfile
@@ -62,19 +76,32 @@ public class MappingProfile : BaseMappingProfile
         CreateMapPlayerContracts();
 
         #endregion Player
+
+        #region Invite
+
+        CreateMapInviteMessages();
+
+        #endregion Invite
+
+        #region Team
+
+        CreateMapTeamMessages();
+
+        #endregion Team
     }
 
     #region Data
 
     private void CreateMapDataMessages()
     {
-        CreateMap<SFC.Data.Messages.Events.DataInitialized, ResetDataCommand>().IgnoreAllNonExisting();
-        CreateMap<SFC.Data.Messages.Models.Common.DataValue, FootballPositionDto>();
-        CreateMap<SFC.Data.Messages.Models.Common.DataValue, GameStyleDto>();
-        CreateMap<SFC.Data.Messages.Models.Common.DataValue, StatCategoryDto>();
-        CreateMap<SFC.Data.Messages.Models.Common.DataValue, StatSkillDto>();
-        CreateMap<SFC.Data.Messages.Models.Stats.StatTypeDataValue, StatTypeDto>();
-        CreateMap<SFC.Data.Messages.Models.Common.DataValue, WorkingFootDto>();
+        CreateMap<SFC.Data.Messages.Events.Data.DataInitialized, ResetDataCommand>().IgnoreAllNonExisting();
+        CreateMap<SFC.Data.Messages.Models.Data.DataValue, FootballPositionDto>();
+        CreateMap<SFC.Data.Messages.Models.Data.DataValue, GameStyleDto>();
+        CreateMap<SFC.Data.Messages.Models.Data.DataValue, StatCategoryDto>();
+        CreateMap<SFC.Data.Messages.Models.Data.DataValue, StatSkillDto>();
+        CreateMap<SFC.Data.Messages.Models.Data.StatTypeDataValue, StatTypeDto>();
+        CreateMap<SFC.Data.Messages.Models.Data.DataValue, WorkingFootDto>();
+        CreateMap<SFC.Data.Messages.Models.Data.DataValue, ShirtDto>();
     }
 
     #endregion Data
@@ -83,19 +110,19 @@ public class MappingProfile : BaseMappingProfile
 
     private void CreateMapIdentityMessages()
     {
-        CreateMap<SFC.Identity.Messages.Events.UserCreated, CreateUserCommand>().IgnoreAllNonExisting();
+        CreateMap<SFC.Identity.Messages.Events.User.UserCreated, CreateUserCommand>().IgnoreAllNonExisting();
 
-        CreateMap<IEnumerable<SFC.Identity.Messages.Models.User>, CreateUsersCommand>()
+        CreateMap<IEnumerable<SFC.Identity.Messages.Models.User.User>, CreateUsersCommand>()
             .ForMember(p => p.Users, d => d.MapFrom(z => z));
 
-        CreateMap<SFC.Identity.Messages.Models.User, UserDto>();
+        CreateMap<SFC.Identity.Messages.Models.User.User, UserDto>();
     }
 
     private void CreateMapIdentityContracts()
     {
-        CreateMap<Guid, SFC.Identity.Contracts.Messages.Get.GetUserRequest>()
-            .ConvertUsing(id => new SFC.Identity.Contracts.Messages.Get.GetUserRequest { Id = id.ToString() });
-        CreateMap<SFC.Identity.Contracts.Models.Get.User, UserDto>();
+        CreateMap<Guid, SFC.Identity.Contracts.Messages.User.Get.GetUserRequest>()
+            .ConvertUsing(id => new SFC.Identity.Contracts.Messages.User.Get.GetUserRequest { Id = id.ToString() });
+        CreateMap<SFC.Identity.Contracts.Models.User.User, UserDto>();
     }
 
     #endregion Identity
@@ -104,11 +131,11 @@ public class MappingProfile : BaseMappingProfile
 
     private void CreateMapPlayerMessages()
     {
-        CreateMap<SFC.Player.Messages.Events.PlayerCreated, CreatePlayerCommand>().IgnoreAllNonExisting();
+        CreateMap<SFC.Player.Messages.Events.Player.General.PlayerCreated, CreatePlayerCommand>().IgnoreAllNonExisting();
 
-        CreateMap<SFC.Player.Messages.Events.PlayerUpdated, UpdatePlayerCommand>().IgnoreAllNonExisting();
+        CreateMap<SFC.Player.Messages.Events.Player.General.PlayerUpdated, UpdatePlayerCommand>().IgnoreAllNonExisting();
 
-        CreateMap<SFC.Player.Messages.Events.PlayerUpdated, CreatePlayerCommand>().IgnoreAllNonExisting();
+        CreateMap<SFC.Player.Messages.Events.Player.General.PlayerUpdated, CreatePlayerCommand>().IgnoreAllNonExisting();
 
         CreateMap<IEnumerable<SFC.Player.Messages.Models.Player.Player>, CreatePlayersCommand>()
             .ForMember(p => p.Players, d => d.MapFrom(z => z));
@@ -146,18 +173,106 @@ public class MappingProfile : BaseMappingProfile
 
     private void CreateMapPlayerContracts()
     {
-        CreateMap<long, SFC.Player.Contracts.Messages.Get.GetPlayerRequest>()
-            .ConvertUsing(id => new SFC.Player.Contracts.Messages.Get.GetPlayerRequest { Id = id });
+        CreateMap<long, SFC.Player.Contracts.Messages.Player.General.Get.GetPlayerRequest>()
+            .ConvertUsing(id => new SFC.Player.Contracts.Messages.Player.General.Get.GetPlayerRequest { Id = id });
 
-        CreateMap<SFC.Player.Contracts.Models.Get.GetPlayer, PlayerDto>();
-        CreateMap<SFC.Player.Contracts.Models.Get.GetPlayerProfile, PlayerProfileDto>();
-        CreateMap<SFC.Player.Contracts.Models.Get.GetPlayerGeneralProfile, PlayerGeneralProfileDto>();
-        CreateMap<SFC.Player.Contracts.Models.Common.Player.PlayerAvailability, PlayerAvailabilityDto>();
-        CreateMap<SFC.Player.Contracts.Models.Get.GetPlayerFootballProfile, PlayerFootballProfileDto>();
-        CreateMap<SFC.Player.Contracts.Models.Get.GetPlayerStats, PlayerStatsDto>();
-        CreateMap<SFC.Player.Contracts.Models.Get.GetPlayerStatPoints, PlayerStatPointsDto>();
-        CreateMap<SFC.Player.Contracts.Models.Common.Player.PlayerStatValue, PlayerStatValueDto>();
+        CreateMap<SFC.Player.Contracts.Models.Player.General.Player, PlayerDto>();
+        CreateMap<SFC.Player.Contracts.Models.Player.General.PlayerProfile, PlayerProfileDto>();
+        CreateMap<SFC.Player.Contracts.Models.Player.General.PlayerGeneralProfile, PlayerGeneralProfileDto>();
+        CreateMap<SFC.Player.Contracts.Models.Player.General.PlayerAvailability, PlayerAvailabilityDto>();
+        CreateMap<SFC.Player.Contracts.Models.Player.General.PlayerFootballProfile, PlayerFootballProfileDto>();
+        CreateMap<SFC.Player.Contracts.Models.Player.General.PlayerStats, PlayerStatsDto>();
+        CreateMap<SFC.Player.Contracts.Models.Player.General.PlayerStatPoints, PlayerStatPointsDto>();
+        CreateMap<SFC.Player.Contracts.Models.Player.General.PlayerStatValue, PlayerStatValueDto>();
     }
 
     #endregion Player
+
+    #region Team
+
+    private void CreateMapTeamMessages()
+    {
+        // data
+        // events
+        CreateMap<SFC.Team.Messages.Events.Team.Data.DataInitialized, ResetTeamDataCommand>().IgnoreAllNonExisting();
+        // models
+        CreateMap<SFC.Team.Messages.Models.Data.DataValue, TeamPlayerStatusDto>();
+        CreateMap<InviteStatus, SFC.Team.Messages.Models.Data.DataValue>();
+
+        // domain
+        // team
+        // events
+        CreateMap<SFC.Team.Messages.Events.Team.General.TeamCreated, CreateTeamCommand>().IgnoreAllNonExisting();
+        CreateMap<SFC.Team.Messages.Events.Team.General.TeamUpdated, UpdateTeamCommand>().IgnoreAllNonExisting();
+        CreateMap<SFC.Team.Messages.Events.Team.General.TeamUpdated, CreateTeamCommand>().IgnoreAllNonExisting();
+        // commands
+        CreateMap<SFC.Team.Messages.Commands.Team.General.SeedTeams, CreateTeamsCommand>();
+        // models
+        CreateMap<IEnumerable<SFC.Team.Messages.Models.Team.General.Team>, CreateTeamsCommand>()
+           .ForMember(p => p.Teams, d => d.MapFrom(z => z));
+        CreateMap<SFC.Team.Messages.Models.Team.General.Team, TeamDto>()
+           .ForPath(p => p.Profile.General, d => d.MapFrom(z => z.GeneralProfile))
+           .ForPath(p => p.Profile.Financial, d => d.MapFrom(z => z.FinancialProfile))
+           .ForPath(p => p.Profile.Inventary.Shirts, d => d.MapFrom(z => z.Shirts))
+           .ForPath(p => p.Profile.General.Logo, d => d.MapFrom(z => z.Logo))
+           .ForPath(p => p.Profile.General.Availability, d => d.MapFrom(z => z.Availability))
+           .ForPath(p => p.Profile.General.Tags, d => d.MapFrom(z => z.Tags));
+        CreateMap<SFC.Team.Messages.Models.Team.General.TeamGeneralProfile, TeamGeneralProfileDto>();
+        CreateMap<SFC.Team.Messages.Models.Team.General.TeamFinancialProfile, TeamFinancialProfileDto>();
+        CreateMap<SFC.Team.Messages.Models.Team.General.TeamLogo, TeamLogoDto>();
+        CreateMap<SFC.Team.Messages.Models.Team.General.TeamAvailability, TeamAvailabilityDto>();
+        CreateMap<SFC.Team.Messages.Models.Team.General.TeamTag, string>().ConvertUsing(tag => tag.Value);
+        CreateMap<SFC.Team.Messages.Models.Team.General.TeamShirt, int>().ConvertUsing(shirt => shirt.ShirtId);
+        // team player
+        // events
+        CreateMap<SFC.Team.Messages.Events.Team.Player.TeamPlayerCreated, CreateTeamPlayerCommand>().IgnoreAllNonExisting();
+        CreateMap<SFC.Team.Messages.Events.Team.Player.TeamPlayerUpdated, UpdateTeamPlayerCommand>().IgnoreAllNonExisting();
+        // models
+        CreateMap<IEnumerable<SFC.Team.Messages.Models.Team.Player.TeamPlayer>, CreateTeamPlayersCommand>()
+           .ForMember(p => p.TeamPlayers, d => d.MapFrom(z => z));
+        CreateMap<SFC.Team.Messages.Models.Team.Player.TeamPlayer, TeamPlayerDto>();
+    }
+
+    #endregion Team
+
+    #region Invite
+
+    private void CreateMapInviteMessages()
+    {
+        // data
+        //commands
+        CreateMap<SFC.Invite.Messages.Commands.Data.InitializeData, ResetDataCommand>().IgnoreAllNonExisting();
+        // models
+        CreateMap<SFC.Invite.Messages.Models.Data.DataValue, FootballPositionDto>();
+        CreateMap<SFC.Invite.Messages.Models.Data.DataValue, GameStyleDto>();
+        CreateMap<SFC.Invite.Messages.Models.Data.DataValue, StatCategoryDto>();
+        CreateMap<SFC.Invite.Messages.Models.Data.DataValue, StatSkillDto>();
+        CreateMap<SFC.Invite.Messages.Models.Data.StatTypeDataValue, StatTypeDto>();
+        CreateMap<SFC.Invite.Messages.Models.Data.DataValue, WorkingFootDto>();
+        CreateMap<SFC.Invite.Messages.Models.Data.DataValue, ShirtDto>();
+        // invite data
+        CreateMap<SFC.Invite.Domain.Entities.Invite.Data.InviteStatus, DataValue>();
+
+        // team
+        // commands
+        CreateMap<InitializeData, ResetTeamDataCommand>().IgnoreAllNonExisting();
+        //models
+        CreateMap<SFC.Invite.Messages.Models.Data.DataValue, TeamPlayerStatusDto>();
+
+        // team player invite
+        // events
+        CreateMap<TeamPlayerInviteEntity, TeamPlayerInviteCreated>()
+            .ForMember(p => p.Invite, d => d.MapFrom(z => z));
+        CreateMap<TeamPlayerInviteEntity, TeamPlayerInviteUpdated>()
+            .ForMember(p => p.Invite, d => d.MapFrom(z => z));
+        CreateMap<IEnumerable<TeamPlayerInviteEntity>, TeamPlayerInvitesSeeded>()
+           .ForMember(p => p.TeamPlayerInvites, d => d.MapFrom(z => z));
+        //commands
+        CreateMap<IEnumerable<TeamPlayerInviteEntity>, SFC.Invite.Messages.Commands.Invite.Team.Player.SeedTeamPlayerInvites>()
+            .ForMember(p => p.TeamPlayerInvites, d => d.MapFrom(z => z));
+        // models
+        CreateMap<TeamPlayerInviteEntity, Messages.Models.Invite.Team.Player.TeamPlayerInvite>();
+    }
+
+    #endregion Invite    
 }

@@ -4,7 +4,7 @@ using SFC.Invite.Application.Common.Extensions;
 using SFC.Invite.Application.Common.Mappings.Converters.File;
 using SFC.Invite.Application.Common.Mappings.Interfaces;
 using SFC.Invite.Application.Features.Common.Dto.Common;
-using SFC.Invite.Domain.Entities.Player;
+using SFC.Invite.Domain.Entities.Player.General;
 
 namespace SFC.Invite.Application.Common.Dto.Player.General;
 public class PlayerPhotoDto : FileDto, IMapFromReverse<PlayerPhoto>

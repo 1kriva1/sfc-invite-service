@@ -3,14 +3,12 @@
 using MediatR;
 
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Identity;
-using SFC.Invite.Domain.Entities.Identity;
+using SFC.Invite.Domain.Entities.Identity.General;
 using SFC.Invite.Domain.Events.Identity;
 
 namespace SFC.Invite.Application.Features.Identity.Commands.CreateRange;
-public class CreateUsersCommandHandler(
-    IMapper mapper,
-    IMediator mediator,
-    IUserRepository userRepository) : IRequestHandler<CreateUsersCommand>
+public class CreateUsersCommandHandler(IMapper mapper, IMediator mediator, IUserRepository userRepository)
+    : IRequestHandler<CreateUsersCommand>
 {
     private readonly IMapper _mapper = mapper;
     private readonly IMediator _mediator = mediator;

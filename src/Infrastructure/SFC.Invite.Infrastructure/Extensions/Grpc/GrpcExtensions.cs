@@ -9,15 +9,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
-using SFC.Invite.Infrastructure.Extensions.Grpc;
-using SFC.Invite.Infrastructure.Settings.Grpc;
-using SFC.Invite.Infrastructure.Services.Identity;
-using SFC.Invite.Infrastructure.Interceptors.Grpc.Server;
+
 using SFC.Invite.Infrastructure.Constants;
+using SFC.Invite.Infrastructure.Extensions.Grpc;
 using SFC.Invite.Infrastructure.Interceptors.Grpc.Client;
+using SFC.Invite.Infrastructure.Interceptors.Grpc.Server;
+using SFC.Invite.Infrastructure.Services.Identity;
+using SFC.Invite.Infrastructure.Settings.Grpc;
 
 using static SFC.Identity.Contracts.Services.IdentityService;
 using static SFC.Player.Contracts.Services.PlayerService;
+using static SFC.Team.Contracts.Services.TeamService;
 
 namespace SFC.Invite.Infrastructure.Extensions.Grpc;
 
@@ -80,6 +82,9 @@ public static class GrpcExtensions
                     break;
                 case Endpoint.Player:
                     services.Services.AddGrpcClient<PlayerServiceClient>(endpoint.Value, settings.Retry, loggerFactory);
+                    break;
+                case Endpoint.Team:
+                    services.Services.AddGrpcClient<TeamServiceClient>(endpoint.Value, settings.Retry, loggerFactory);
                     break;
                 default:
                     throw new NotImplementedException($"Not implemented Grpc Api for Id: {endpoint.Key}");

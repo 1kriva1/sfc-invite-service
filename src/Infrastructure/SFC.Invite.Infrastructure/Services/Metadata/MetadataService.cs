@@ -6,9 +6,9 @@ public class MetadataService(IMetadataRepository metadataRepository) : IMetadata
 {
     private readonly IMetadataRepository _metadataRepository = metadataRepository;
 
-    public async Task CompleteAsync(MetadataServiceEnum service, MetadataTypeEnum type)
+    public async Task CompleteAsync(MetadataServiceEnum service, MetadataDomainEnum domain, MetadataTypeEnum type)
     {
-        MetadataEntity? metadata = await _metadataRepository.GetByIdAsync(service, type).ConfigureAwait(true);
+        MetadataEntity? metadata = await _metadataRepository.GetByIdAsync(service, domain, type).ConfigureAwait(true);
 
         if (metadata is not null)
         {
@@ -17,9 +17,9 @@ public class MetadataService(IMetadataRepository metadataRepository) : IMetadata
         }
     }
 
-    public async Task<bool> IsCompletedAsync(MetadataServiceEnum service, MetadataTypeEnum type)
+    public async Task<bool> IsCompletedAsync(MetadataServiceEnum service, MetadataDomainEnum domain, MetadataTypeEnum type)
     {
-        MetadataEntity? metadata = await _metadataRepository.GetByIdAsync(service, type).ConfigureAwait(true);
+        MetadataEntity? metadata = await _metadataRepository.GetByIdAsync(service, domain, type).ConfigureAwait(true);
         return metadata?.State == MetadataStateEnum.Done;
     }
 }

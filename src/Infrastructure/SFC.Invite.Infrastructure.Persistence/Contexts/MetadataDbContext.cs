@@ -35,6 +35,7 @@ public class MetadataDbContext(
         modelBuilder.ApplyConfiguration(new MetadataStateConfiguration());
         modelBuilder.ApplyConfiguration(new MetadataTypeConfiguration());
         modelBuilder.ApplyConfiguration(new MetadataConfiguration());
+        modelBuilder.ApplyConfiguration(new MetadataDomainConfiguration());
 
         // seed data
         modelBuilder.SeedMetadata(isDevelopment);

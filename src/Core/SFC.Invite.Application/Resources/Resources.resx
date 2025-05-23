@@ -171,4 +171,31 @@
   <data name="PlayerNotFound" xml:space="preserve">
     <value>Player not found.</value>
   </data>
+  <data name="TeamNotFound" xml:space="preserve">
+    <value>Team not found.</value>
+  </data>
+  <data name="PlayerAlreadyInTeam" xml:space="preserve">
+    <value>Player already in team.</value>
+  </data>
+  <data name="TeamPlayerInviteActiveAlreadyExist" xml:space="preserve">
+    <value>Active team player invite already exist.</value>
+  </data>
+  <data name="InviteAlreadyFinalized" xml:space="preserve">
+    <value>Team player invite already finalized.</value>
+  </data>
+  <data name="TeamPlayerNotFound" xml:space="preserve">
+    <value>Team player not found.</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Actual</value>
+  </data>
+  <data name="Accepted" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="Refused" xml:space="preserve">
+    <value>Refused</value>
+  </data>
 </root>

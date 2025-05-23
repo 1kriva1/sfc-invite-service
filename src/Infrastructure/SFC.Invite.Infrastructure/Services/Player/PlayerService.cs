@@ -2,10 +2,10 @@
 
 using Microsoft.Extensions.Configuration;
 
-using SFC.Invite.Infrastructure.Extensions.Grpc;
-using SFC.Player.Contracts.Messages.Get;
 using SFC.Invite.Application.Common.Dto.Player.General;
 using SFC.Invite.Application.Interfaces.Player;
+using SFC.Invite.Infrastructure.Extensions.Grpc;
+using SFC.Player.Contracts.Messages.Player.General.Get;
 
 using static SFC.Player.Contracts.Services.PlayerService;
 

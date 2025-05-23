@@ -1,0 +1,9 @@
+﻿syntax = "proto3";
+
+package sfc_invite;
+
+option csharp_namespace = "SFC.Invite.Contracts.Messages.Invite.Team.Player.Find.Filters";
+
+message GetTeamPlayerInvitesFilter
+{
+}

@@ -11,7 +11,7 @@ public class MetadataConfiguration : IEntityTypeConfiguration<MetadataEntity>
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.HasKey(e => new { e.Service, e.Type });
+        builder.HasKey(e => new { e.Service, e.Type, e.Domain });
 
         builder.HasOne<MetadataService>()
                .WithMany()
@@ -26,6 +26,11 @@ public class MetadataConfiguration : IEntityTypeConfiguration<MetadataEntity>
         builder.HasOne<MetadataState>()
                .WithMany()
                .HasForeignKey(t => t.State)
+               .IsRequired(true);
+
+        builder.HasOne<MetadataDomain>()
+               .WithMany()
+               .HasForeignKey(t => t.Domain)
                .IsRequired(true);
 
         builder.ToTable("Metadata", DatabaseConstants.MetadataSchemaName);

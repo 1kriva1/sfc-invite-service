@@ -2,10 +2,10 @@
 
 using Microsoft.Extensions.Configuration;
 
+using SFC.Identity.Contracts.Messages.User.Get;
 using SFC.Invite.Application.Common.Dto.Identity;
 using SFC.Invite.Application.Interfaces.Identity;
 using SFC.Invite.Infrastructure.Extensions.Grpc;
-using SFC.Identity.Contracts.Messages.Get;
 
 using static SFC.Identity.Contracts.Services.IdentityService;
 

@@ -43,6 +43,7 @@ public static class AuthenticationExtensions
             options.AddGeneralPolicy(identitySettings.RequireClaims);
             options.AddOwnInvitePolicy(identitySettings.RequireClaims);
             options.AddOwnPlayerPolicy(identitySettings.RequireClaims);
+            options.AddOwnTeamPolicy(identitySettings.RequireClaims);
         });
     }
 }

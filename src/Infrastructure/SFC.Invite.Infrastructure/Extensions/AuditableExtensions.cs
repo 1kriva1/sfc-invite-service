@@ -1,10 +1,10 @@
-﻿using SFC.Invite.Application.Features.Common.Dto.Base;
-using SFC.Identity.Contracts.Headers;
+﻿using SFC.Identity.Contracts.Headers;
+using SFC.Invite.Application.Common.Dto.Common;
 
 namespace SFC.Invite.Infrastructure.Extensions;
 public static class AuditableExtensions
 {
-    public static void SetAuditableProperties(this BaseAuditableDto value, AuditableHeader header)
+    public static void SetAuditableProperties(this AuditableDto value, AuditableHeader header)
     {
         value.CreatedDate = header.CreatedDate.ToDateTime();
         value.CreatedBy = Guid.Parse(header.CreatedBy);

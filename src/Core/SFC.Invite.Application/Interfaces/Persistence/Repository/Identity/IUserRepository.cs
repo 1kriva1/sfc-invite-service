@@ -1,5 +1,6 @@
 ﻿using SFC.Invite.Application.Interfaces.Persistence.Context;
-using SFC.Invite.Domain.Entities.Identity;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Common;
+using SFC.Invite.Domain.Entities.Identity.General;
 
 namespace SFC.Invite.Application.Interfaces.Persistence.Repository.Identity;
 

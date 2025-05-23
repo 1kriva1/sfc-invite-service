@@ -4,7 +4,6 @@ using SFC.Invite.Application.Features.Common.Models.Find;
 using SFC.Invite.Application.Features.Common.Models.Find.Filters;
 using SFC.Invite.Application.Features.Common.Models.Find.Paging;
 using SFC.Invite.Application.Features.Common.Models.Find.Sorting;
-using SFC.Invite.Infrastructure.Persistence.Extensions;
 
 namespace SFC.Invite.Infrastructure.Persistence.Extensions;
 public static class PaginationExtensions

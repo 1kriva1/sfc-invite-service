@@ -2,19 +2,29 @@
 using Microsoft.Extensions.DependencyInjection;
 
 using SFC.Invite.Application.Common.Settings;
-using SFC.Invite.Application.Interfaces.Persistence.Repository;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Common;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Data;
-using SFC.Invite.Application.Interfaces.Persistence.Repository.Invite;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Identity;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Invite.Data;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Invite.Team.Player;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Metadata;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Player;
-using SFC.Invite.Infrastructure.Persistence.Repositories.Player;
-using SFC.Invite.Infrastructure.Persistence.Repositories;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Team.Data;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Team.General;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Team.Player;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Common;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Data;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Data.Cache;
-using SFC.Invite.Infrastructure.Persistence.Repositories.Invite;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Identity;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Invite.Data;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Invite.Data.Cache;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Invite.Team.Player;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Metadata;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Player;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Team.Data;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Team.Data.Cache;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Team.General;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Team.Player;
 
 namespace SFC.Invite.Infrastructure.Persistence.Extensions;
 public static class RepositoryExtensions
@@ -27,7 +37,9 @@ public static class RepositoryExtensions
         services.AddScoped<IMetadataRepository, MetadataRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPlayerRepository, PlayerRepository>();
-        services.AddScoped<IInviteRepository, InviteRepository>();
+        services.AddScoped<ITeamRepository, TeamRepository>();
+        services.AddScoped<ITeamPlayerRepository, TeamPlayerRepository>();
+        services.AddScoped<ITeamPlayerInviteRepository, TeamPlayerInviteRepository>();
 
         CacheSettings? cacheSettings = configuration
            .GetSection(CacheSettings.SectionKey)
@@ -48,6 +60,16 @@ public static class RepositoryExtensions
             services.AddScoped<IStatTypeRepository, StatTypeCacheRepository>();
             services.AddScoped<WorkingFootRepository>();
             services.AddScoped<IWorkingFootRepository, WorkingFootCacheRepository>();
+            services.AddScoped<ShirtRepository>();
+            services.AddScoped<IShirtRepository, ShirtCacheRepository>();
+
+            // invite
+            services.AddScoped<InviteStatusRepository>();
+            services.AddScoped<IInviteStatusRepository, InviteStatusCacheRepository>();
+
+            // team
+            services.AddScoped<TeamPlayerStatusRepository>();
+            services.AddScoped<ITeamPlayerStatusRepository, TeamPlayerStatusCacheRepository>();
         }
         else
         {
@@ -58,6 +80,13 @@ public static class RepositoryExtensions
             services.AddScoped<IStatSkillRepository, StatSkillRepository>();
             services.AddScoped<IStatTypeRepository, StatTypeRepository>();
             services.AddScoped<IWorkingFootRepository, WorkingFootRepository>();
+            services.AddScoped<IShirtRepository, ShirtRepository>();
+
+            // invite
+            services.AddScoped<IInviteStatusRepository, InviteStatusRepository>();
+
+            // team
+            services.AddScoped<ITeamPlayerStatusRepository, TeamPlayerStatusRepository>();
         }
 
         return services;

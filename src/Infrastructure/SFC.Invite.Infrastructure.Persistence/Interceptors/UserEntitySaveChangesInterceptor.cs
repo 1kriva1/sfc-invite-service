@@ -7,7 +7,7 @@ using SFC.Invite.Application.Common.Exceptions;
 using SFC.Invite.Application.Interfaces.Identity;
 using SFC.Invite.Application.Interfaces.Reference;
 using SFC.Invite.Domain.Common.Interfaces;
-using SFC.Invite.Domain.Entities.Identity;
+using SFC.Invite.Domain.Entities.Identity.General;
 
 namespace SFC.Invite.Infrastructure.Persistence.Interceptors;
 public class UserEntitySaveChangesInterceptor(IUserService userService, IIdentityReference identityReference) : SaveChangesInterceptor

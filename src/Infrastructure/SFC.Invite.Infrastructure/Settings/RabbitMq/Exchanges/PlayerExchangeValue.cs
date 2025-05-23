@@ -1,13 +1,19 @@
-﻿namespace SFC.Invite.Infrastructure.Settings.RabbitMq.Exchanges;
+﻿using SFC.Invite.Infrastructure.Settings.RabbitMq.Exchanges.Common.Domain;
+
+namespace SFC.Invite.Infrastructure.Settings.RabbitMq.Exchanges;
 public class PlayerExchangeValue
 {
-    public Exchange PlayerCreated { get; set; } = default!;
+    public PlayerDomainExchange Domain { get; set; } = default!;
+}
 
-    public Exchange PlayerUpdated { get; set; } = default!;
+public class PlayerDomainExchange
+{
+    public DomainExchange<PlayerDomainEventsExchange> Player { get; set; } = default!;
+}
 
-    public Exchange PlayersSeeded { get; set; } = default!;
+public class PlayerDomainEventsExchange
+{
+    public Exchange Created { get; set; } = default!;
 
-    public Exchange SeedPlayers { get; set; } = default!;
-
-    public Exchange RequirePlayersSeed { get; set; } = default!;
+    public Exchange Updated { get; set; } = default!;
 }

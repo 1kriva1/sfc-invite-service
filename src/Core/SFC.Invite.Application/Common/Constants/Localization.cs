@@ -89,6 +89,31 @@ public class Localization
                        GetValue(s_localizer?.GetString("PlayerNotFound"),
                            "Player not found.")!;
 
+    public static string TeamNotFound =>
+                       GetValue(s_localizer?.GetString("TeamNotFound"),
+                           "Team not found.")!;
+
+    public static string PlayerAlreadyInTeam =>
+                       GetValue(s_localizer?.GetString("PlayerAlreadyInTeam"),
+                           "Player already in team.")!;
+
+    public static string TeamPlayerInviteActiveAlreadyExist =>
+                       GetValue(s_localizer?.GetString("TeamPlayerInviteActiveAlreadyExist"),
+                           "Active team player invite already exist.")!;
+
+    public static string InviteAlreadyFinalized =>
+                       GetValue(s_localizer?.GetString("InviteAlreadyFinalized"),
+                           "Invite already finalized.")!;
+
+    public static string TeamPlayerNotFound =>
+                       GetValue(s_localizer?.GetString("TeamPlayerNotFound"),
+                           "Team player not found.")!;
+
+    public static string GetDataValue(string name)
+    {
+        return GetValue(s_localizer?.GetString(name), name)!;
+    }
+
     private static string GetValue(LocalizedString? @string, string defaultValue)
     {
         return @string == null

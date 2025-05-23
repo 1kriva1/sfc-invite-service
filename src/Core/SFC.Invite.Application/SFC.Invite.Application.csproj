@@ -12,4 +12,9 @@
     <ProjectReference Include="..\SFC.Invite.Domain\SFC.Invite.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Invite\Game\Team\" />
+    <Folder Include="Features\Invite\Game\Player\" />
+  </ItemGroup>
+
 </Project>

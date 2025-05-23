@@ -19,7 +19,7 @@ public class DataResetedNotificationHandler(
 
     public async Task Handle(DataResetedEvent notification, CancellationToken cancellationToken)
     {
-        await _metadataService.CompleteAsync(MetadataServiceEnum.Data, MetadataTypeEnum.Initialization).ConfigureAwait(false);
+        await _metadataService.CompleteAsync(MetadataServiceEnum.Data, MetadataDomainEnum.Data, MetadataTypeEnum.Initialization).ConfigureAwait(false);
 
         if (_hostEnvironment.IsDevelopment())
         {

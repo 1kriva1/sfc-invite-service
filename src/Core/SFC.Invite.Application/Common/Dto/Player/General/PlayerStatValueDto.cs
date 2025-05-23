@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 
 using SFC.Invite.Application.Common.Mappings.Interfaces;
-using SFC.Invite.Domain.Entities.Player;
+using SFC.Invite.Domain.Entities.Player.General;
 
 namespace SFC.Invite.Application.Common.Dto.Player.General;
 public record PlayerStatValueDto : IMapFromReverse<PlayerStat>

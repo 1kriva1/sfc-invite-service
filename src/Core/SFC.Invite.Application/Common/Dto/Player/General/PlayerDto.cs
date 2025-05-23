@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 
+using SFC.Invite.Application.Common.Dto.Common;
 using SFC.Invite.Application.Common.Mappings.Interfaces;
-using SFC.Invite.Application.Features.Common.Dto.Base;
 
 namespace SFC.Invite.Application.Common.Dto.Player.General;
-public class PlayerDto : BaseAuditableDto, IMapFromReverse<PlayerEntity>
+public class PlayerDto : AuditableDto, IMapFromReverse<PlayerEntity>
 {
     public long Id { get; set; }
 
