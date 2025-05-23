@@ -4,7 +4,7 @@ using SFC.Invite.Application.Common.Dto.Identity;
 using SFC.Invite.Application.Interfaces.Identity;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Identity;
 using SFC.Invite.Application.Interfaces.Reference;
-using SFC.Invite.Domain.Entities.Identity;
+using SFC.Invite.Domain.Entities.Identity.General;
 
 namespace SFC.Invite.Infrastructure.Services.Reference;
 public class IdentityReference(

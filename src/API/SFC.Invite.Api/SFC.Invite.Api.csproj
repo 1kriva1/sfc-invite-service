@@ -32,6 +32,11 @@
     <ProjectReference Include="..\..\Infrastructure\SFC.Invite.Infrastructure.Persistence\SFC.Invite.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SFC.Invite.Infrastructure\SFC.Invite.Infrastructure.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Infrastructure\Models\Invite\Game\Team\" />
+    <Folder Include="Infrastructure\Models\Invite\Game\Player\" />
+  </ItemGroup>
 
   <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' == True">
     <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />

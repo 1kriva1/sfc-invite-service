@@ -1,5 +1,5 @@
 ﻿using SFC.Invite.Application.Common.Dto.Identity;
-using SFC.Invite.Domain.Entities.Identity;
+using SFC.Invite.Domain.Entities.Identity.General;
 
 namespace SFC.Invite.Application.Interfaces.Reference;
 

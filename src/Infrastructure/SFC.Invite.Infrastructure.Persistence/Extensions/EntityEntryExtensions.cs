@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using System.Linq.Expressions;
+
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
 using SFC.Invite.Domain.Common;
+using SFC.Invite.Domain.Common.Interfaces;
 
 namespace SFC.Invite.Infrastructure.Persistence.Extensions;
 public static class EntityEntryExtensions
@@ -43,5 +46,17 @@ public static class EntityEntryExtensions
 
         return newEntities.ToArray();
 #pragma warning restore CA1851 // Possible multiple enumerations of 'IEnumerable' collection
+    }
+
+    public static void SetReference(this EntityEntry<IPlayerEntity> entry, DbContext context, PlayerEntity player)
+    {
+        entry.Entity.Player = player;
+        context.Entry<PlayerEntity>(entry.Entity.Player).State = EntityState.Unchanged;
+    }
+
+    public static void SetReference(this EntityEntry<ITeamEntity> entry, DbContext context, TeamEntity team)
+    {
+        entry.Entity.Team = team;
+        context.Entry<TeamEntity>(entry.Entity.Team).State = EntityState.Unchanged;
     }
 }

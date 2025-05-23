@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using SFC.Invite.Domain.Entities.Player;
+using SFC.Invite.Domain.Entities.Player.General;
 using SFC.Invite.Infrastructure.Persistence.Constants;
 
 namespace SFC.Invite.Infrastructure.Persistence.Configurations.Player;

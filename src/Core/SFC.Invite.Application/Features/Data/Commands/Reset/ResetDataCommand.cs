@@ -18,4 +18,6 @@ public class ResetDataCommand : Request
     public IEnumerable<StatTypeDto> StatTypes { get; init; } = [];
 
     public IEnumerable<WorkingFootDto> WorkingFoots { get; init; } = [];
+
+    public IEnumerable<ShirtDto> Shirts { get; init; } = [];
 }

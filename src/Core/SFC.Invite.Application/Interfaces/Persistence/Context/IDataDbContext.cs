@@ -19,4 +19,6 @@ public interface IDataDbContext : IDbContext
     IQueryable<StatType> StatTypes { get; }
 
     IQueryable<WorkingFoot> WorkingFoots { get; }
+
+    IQueryable<Shirt> Shirts { get; }
 }

@@ -1,11 +1,17 @@
-﻿namespace SFC.Invite.Infrastructure.Settings.RabbitMq.Exchanges;
+﻿using SFC.Invite.Infrastructure.Settings.RabbitMq.Exchanges.Common.Domain;
+
+namespace SFC.Invite.Infrastructure.Settings.RabbitMq.Exchanges;
 public class IdentityExchangeValue
 {
-    public Exchange UserCreated { get; set; } = default!;
+    public IdentityDomainExchange Domain { get; set; } = default!;
+}
 
-    public Exchange UsersSeeded { get; set; } = default!;
+public class IdentityDomainExchange
+{
+    public DomainExchange<IdentityDomainEventsExchange> User { get; set; } = default!;
+}
 
-    public Exchange SeedUsers { get; set; } = default!;
-
-    public Exchange RequireUsersSeed { get; set; } = default!;
+public class IdentityDomainEventsExchange
+{
+    public Exchange Created { get; set; } = default!;
 }

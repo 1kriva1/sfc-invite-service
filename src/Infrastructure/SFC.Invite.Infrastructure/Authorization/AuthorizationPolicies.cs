@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
 using SFC.Invite.Infrastructure.Authorization.OwnInvite;
-using SFC.Invite.Infrastructure.Constants;
 using SFC.Invite.Infrastructure.Authorization.OwnPlayer;
+using SFC.Invite.Infrastructure.Authorization.OwnTeam;
+using SFC.Invite.Infrastructure.Constants;
 
 namespace SFC.Invite.Infrastructure.Authorization;
 public static class AuthorizationPolicies
@@ -31,6 +32,14 @@ public static class AuthorizationPolicies
             .AddRequirements(new OwnPlayerRequirement());
 
         return BuildPolicyModel(Policy.OwnPlayer, builder);
+    }
+
+    public static PolicyModel OwnTeam(IDictionary<string, IEnumerable<string>> claims)
+    {
+        AuthorizationPolicyBuilder builder = GetGeneralPolicyBuilder(claims)
+            .AddRequirements(new OwnTeamRequirement());
+
+        return BuildPolicyModel(Policy.OwnTeam, builder);
     }
 
 

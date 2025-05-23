@@ -4,45 +4,100 @@
         <name>SFC.Invite.Api</name>
     </assembly>
     <members>
-        <member name="M:SFC.Invite.Api.Controllers.InvitesController.CreateInviteAsync(SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteRequest)">
+        <member name="M:SFC.Invite.Api.Controllers.InviteDataController.GetAllAsync">
             <summary>
-            Create new invite.
+            Return all available data types.
             </summary>
-            <param name="request">Create invite request.</param>
-            <returns>An ActionResult of type CreateInviteResponse</returns>
-            <response code="201">Returns **new** created invite.</response>
-            <response code="400">Returns **validation** errors.</response>
-            <response code="401">Returns when **failed** authentication.</response>
-        </member>
-        <member name="M:SFC.Invite.Api.Controllers.InvitesController.UpdateInviteAsync(System.Int64,SFC.Invite.Api.Infrastructure.Models.Invites.Update.UpdateInviteRequest)">
-            <summary>
-            Update existing invite.
-            </summary>
-            <param name="id">Invite unique identifier.</param>
-            <param name="request">Update invite request.</param>
-            <returns>No content</returns>
-            <response code="204">Returns no content if invite updated **successfully**.</response>
-            <response code="400">Returns **validation** errors.</response>
+            <returns>An ActionResult of type GetAllResponse</returns>
+            <response code="200">Returns all available **data types**.</response>
             <response code="401">Returns when **failed** authentication.</response>
             <response code="403">Returns when **failed** authorization.</response>
         </member>
-        <member name="M:SFC.Invite.Api.Controllers.InvitesController.GetInviteAsync(System.Int64)">
+        <member name="T:SFC.Invite.Api.Controllers.TeamPlayerInvitesController">
             <summary>
-            Return invite model by unique identifier.
+            Team player invite controller:
+            - create invite
+            - cancel/accept/refuse invite
+            - get/find invites
             </summary>
-            <param name="id">Invite unique identifier.</param>
-            <returns>An ActionResult of type GetInviteResponse</returns>
-            <response code="200">Returns invite model.</response>
-            <response code="401">Returns when **failed** authentication.</response>
-            <response code="404">Returns when invite **not found** by unique identifier.</response>
         </member>
-        <member name="M:SFC.Invite.Api.Controllers.InvitesController.GetInvitesAsync(SFC.Invite.Api.Infrastructure.Models.Invites.Find.GetInvitesRequest)">
+        <member name="M:SFC.Invite.Api.Controllers.TeamPlayerInvitesController.CreateTeamPlayerInviteAsync(System.Int64,System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteRequest)">
             <summary>
-            Return list of invitemultiple
+            Create new team invite for player.
             </summary>
-            <param name="request">Get invitemultiple request.</param>
-            <returns>An ActionResult of type GetInvitesResponse</returns>
-            <response code="200">Returns list of invitemultiple with pagination header.</response>
+            <param name="teamId">Team Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="request">Create team invite for player request.</param>
+            <returns>An ActionResult of type CreateTeamPlayerInviteResponse</returns>
+            <response code="201">Returns **new** created team player invite.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.TeamPlayerInvitesController.CancelTeamPlayerInviteAsync(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Cancel team invite for player by team.
+            </summary>
+            <param name="teamId">Team Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="inviteId">Team player invite Id.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** canceled.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.TeamPlayerInvitesController.RefuseTeamPlayerInviteAsync(System.Int64,System.Int64,System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Update.Refuse.RefuseTeamPlayerInviteRequest)">
+            <summary>
+            Refuse team invite for player by player.
+            </summary>
+            <param name="teamId">Team Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="inviteId">Team player invite Id.</param>
+            <param name="request">Refuse team invite for player request.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** refused.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.TeamPlayerInvitesController.AcceptTeamPlayerInviteAsync(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Accept team invite for player by player.
+            </summary>
+            <param name="teamId">Team Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="inviteId">Team player invite Id.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** accepted.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.TeamPlayerInvitesController.GetTeamPlayerInviteAsync(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Return team invite for player.
+            </summary>
+            <param name="teamId">Team Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="inviteId">Team player invite Id.</param>
+            <returns>An ActionResult of type GetTeamPlayerInviteResponse</returns>
+            <response code="200">Returns team invite for player model.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="404">Returns when invite **not found**.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.TeamPlayerInvitesController.GetTeamPlayerInvitesAsync(SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Find.GetTeamPlayerInvitesRequest)">
+            <summary>
+            Return list of team player invites.
+            </summary>
+            <param name="request">Get team player invites request.</param>
+            <returns>An ActionResult of type GetTeamPlayerInvitesResponse</returns>
+            <response code="200">Returns list of team player invites with pagination header.</response>
             <response code="400">Returns **validation** errors.</response>
             <response code="401">Returns when **failed** authentication.</response>
         </member>
@@ -52,8 +107,8 @@
             RequireHost distinguish webapi and grpc by port value
             Also required Kestrel endpoint configuration in appSettings
             </summary>
-            <param name="builder"></param>
-            <param name="url"></param>
+            <param name="builder">Grpc endpoint builder</param>
+            <param name="url">Endpoint URL</param>
         </member>
         <member name="T:SFC.Invite.Api.Infrastructure.Models.Base.BaseErrorResponse">
             <summary>
@@ -143,84 +198,169 @@
             Sorting **direction** (ascending or descending).
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Common.BaseInviteModel">
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Data.Common.DataValueModel">
             <summary>
-            **Base** invite model.
+            Data value.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Common.InviteModel">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Data.Common.DataValueModel.Id">
             <summary>
-            Invite model.
+            Unique identificator of data type.
             </summary>
         </member>
-        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Common.InviteModel.Id">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Data.Common.DataValueModel.Title">
+            <summary>
+            Describe data type.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Data.GetAll.GetAllInviteDataResponse">
+            <summary>
+            Contain all available invite **data types**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Data.GetAll.GetAllInviteDataResponse.InviteStatuses">
+            <summary>
+            Invite statuses.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteModel">
+            <summary>
+            Team player invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteModel.Id">
             <summary>
             Unique identifier.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteModel">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteModel.Player">
             <summary>
-            **Create** invite model.
+            Team invite related to this player.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteRequest">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteModel.Team">
             <summary>
-            **Create** Invite request.
+            Team invite related to this team.
             </summary>
         </member>
-        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteRequest.Invite">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteModel.Status">
             <summary>
-            Invite model.
+            Team player invite status.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteResponse">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteModel.TeamComment">
             <summary>
-            **Create** invite response model.
+            Comment from team to player for invitation.
             </summary>
         </member>
-        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Create.CreateInviteResponse.Invite">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteModel.PlayerComment">
             <summary>
-            Invite model.
+            Comment from player to team if he/she refuse invite.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Find.Filters.GetInvitesFilterModel">
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteTeamModel">
             <summary>
-            Get invitemultiple filter model.
+            Team model for team player invite.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Find.GetInvitesRequest">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteTeamModel.Id">
             <summary>
-            **Get** invitemultiple request.
+            Team unique identifier.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Find.GetInvitesResponse">
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteModel">
             <summary>
-            **Get** invitemultiple response.
+            **Create** team player invite model.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Get.GetInviteResponse">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteModel.Comment">
             <summary>
-            **Get** invite response.
+            Comment from team to player for invitation.
             </summary>
         </member>
-        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Get.GetInviteResponse.Invite">
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteRequest">
             <summary>
-            Invite model.
+            **Create** team player invite request.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Update.UpdateInviteModel">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteRequest.Invite">
             <summary>
-            **Update** invite model.
+            Team player invite model.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invites.Update.UpdateInviteRequest">
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteResponse">
             <summary>
-            **Update** invite request.
+            **Create** team player invite response.
             </summary>
         </member>
-        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invites.Update.UpdateInviteRequest.Invite">
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteResponse.Invite">
             <summary>
-            Invite model.
+            Team player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Find.Filters.GetTeamPlayerInvitesFilterModel">
+            <summary>
+            Get team player invites filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Find.Filters.GetTeamPlayerInvitesFilterModel.Invite">
+            <summary>
+            Invite filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Find.Filters.GetTeamPlayerInvitesFilterModel.Player">
+            <summary>
+            Player filter model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Find.Filters.GetTeamPlayerInvitesInviteFilterModel">
+            <summary>
+            Get team player invites for invite filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Find.Filters.GetTeamPlayerInvitesInviteFilterModel.Statuses">
+            <summary>
+            Statuses of invite.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Find.GetTeamPlayerInvitesRequest">
+            <summary>
+            **Get** team player invites request.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Find.GetTeamPlayerInvitesResponse">
+            <summary>
+            **Get** team player invites response.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Get.GetTeamPlayerInviteResponse">
+            <summary>
+            **Get** team player invite response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Get.GetTeamPlayerInviteResponse.Invite">
+            <summary>
+            Team player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Update.Refuse.RefuseTeamPlayerInviteModel">
+            <summary>
+            **Refuse** team player invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Update.Refuse.RefuseTeamPlayerInviteModel.Comment">
+            <summary>
+            Comment from player to explain why he/she is refuse team invite.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Update.Refuse.RefuseTeamPlayerInviteRequest">
+            <summary>
+            **Refuse** team player invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Update.Refuse.RefuseTeamPlayerInviteRequest.Invite">
+            <summary>
+            Refuse team player invite model.
             </summary>
         </member>
         <member name="T:SFC.Invite.Api.Infrastructure.Models.Pagination.PageLinksModel">
@@ -301,6 +441,321 @@
         <member name="P:SFC.Invite.Api.Infrastructure.Models.Pagination.PaginationModel.Size">
             <summary>
             Requested page **size**.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerAvailabilityLimitFilterModel">
+            <summary>
+            Get players **availability filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerAvailabilityLimitFilterModel.Days">
+            <summary>
+            Day of week.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFilterModel">
+            <summary>
+            Get players filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFilterModel.Profile">
+            <summary>
+            Profile filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFilterModel.Stats">
+            <summary>
+            Stats filter model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFootballProfileFilterModel">
+            <summary>
+            Get players **football profile filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFootballProfileFilterModel.Height">
+            <summary>
+            Height.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFootballProfileFilterModel.Weight">
+            <summary>
+            Weight.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFootballProfileFilterModel.Positions">
+            <summary>
+            List of **positions** on field.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFootballProfileFilterModel.WorkingFoot">
+            <summary>
+            What **foot** player prefer to use.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFootballProfileFilterModel.GameStyles">
+            <summary>
+            **Style** of play.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFootballProfileFilterModel.Skill">
+            <summary>
+            **Dribbling** skill value.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerFootballProfileFilterModel.PhysicalCondition">
+            <summary>
+            Physical condition value.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerGeneralProfileFilterModel">
+            <summary>
+            Get players **general profile filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerGeneralProfileFilterModel.Name">
+            <summary>
+            Name (first and last).
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerGeneralProfileFilterModel.City">
+            <summary>
+            **City** where player will play football.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerGeneralProfileFilterModel.Tags">
+            <summary>
+            Player's **tags**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerGeneralProfileFilterModel.Years">
+            <summary>
+            Range limit for players age.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerGeneralProfileFilterModel.Availability">
+            <summary>
+            Player's **availability** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerGeneralProfileFilterModel.FreePlay">
+            <summary>
+            Describe if player can **pay** for football matches.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerGeneralProfileFilterModel.HasPhoto">
+            <summary>
+            Describe if player must have uploaded photo.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerProfileFilterModel">
+            <summary>
+            Get players **profile filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerProfileFilterModel.General">
+            <summary>
+            General profile.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerProfileFilterModel.Football">
+            <summary>
+            Football profile.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerStatsBySkillRangeLimitFilterModel">
+            <summary>
+            Range limit by **stat skill**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerStatsBySkillRangeLimitFilterModel.Skill">
+            <summary>
+            Stat skill unique identifier.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerStatsFilterModel">
+            <summary>
+            Get players **stats filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerStatsFilterModel.Total">
+            <summary>
+            Filter by total rating.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerStatsFilterModel.Physical">
+            <summary>
+            Filter by physical stats rating.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerStatsFilterModel.Mental">
+            <summary>
+            Filter by mental stats rating.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerStatsFilterModel.Skill">
+            <summary>
+            Filter by skill stats rating.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters.PlayerStatsFilterModel.Raiting">
+            <summary>
+            Filter by rating.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerAvailabilityModel">
+            <summary>
+            Player's **availability** model (when player is available to play).
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerAvailabilityModel.Days">
+            <summary>
+            Days of week.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerFootballProfileModel">
+            <summary>
+            Player's **football** profile model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerFootballProfileModel.Height">
+            <summary>
+            Height.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerFootballProfileModel.Weight">
+            <summary>
+            Weight.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerFootballProfileModel.Position">
+            <summary>
+            Position on field.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerFootballProfileModel.WorkingFoot">
+            <summary>
+            Describe what **foot** player prefer to use.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerFootballProfileModel.GameStyle">
+            <summary>
+            **Style** of play.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerFootballProfileModel.Skill">
+            <summary>
+            **Dribbling** skill value.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerFootballProfileModel.PhysicalCondition">
+            <summary>
+            Physical condition value.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerGeneralProfileModel">
+            <summary>
+            Player's **general** profile model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerGeneralProfileModel.FirstName">
+            <summary>
+            First name.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerGeneralProfileModel.LastName">
+            <summary>
+            Last name.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerGeneralProfileModel.Photo">
+            <summary>
+            Photo/avatar.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerGeneralProfileModel.Birthday">
+            <summary>
+            Date of birth.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerGeneralProfileModel.City">
+            <summary>
+            **City** where player will play football.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerGeneralProfileModel.FreePlay">
+            <summary>
+             Describe if player can **pay** for football matches.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerGeneralProfileModel.Tags">
+            <summary>
+            Player's **tags**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerGeneralProfileModel.Availability">
+            <summary>
+            Player's **availability** model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerModel">
+            <summary>
+            Player model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerModel.Id">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerModel.Profile">
+            <summary>
+            Player's profile model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerModel.Stats">
+            <summary>
+            Player's stats model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerProfileModel">
+            <summary>
+            Player **profile** model for get players request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerProfileModel.General">
+            <summary>
+            General profile.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerProfileModel.Football">
+            <summary>
+            Football profile.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerStatsModel">
+            <summary>
+            Player stats model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerStatsModel.Values">
+            <summary>
+            Stats.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerStatValueModel">
+            <summary>
+            Player stat value model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerStatValueModel.Type">
+            <summary>
+            Type of stat
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.Result.PlayerStatValueModel.Value">
+            <summary>
+            Stat value.
             </summary>
         </member>
     </members>

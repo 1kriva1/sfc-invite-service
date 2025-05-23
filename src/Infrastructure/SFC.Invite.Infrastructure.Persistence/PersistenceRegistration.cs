@@ -17,6 +17,7 @@ public static class PersistenceRegistration
         builder.Services.AddDbContext<IdentityDbContext>(builder.Configuration, builder.Environment);
         builder.Services.AddDbContext<InviteDbContext>(builder.Configuration, builder.Environment);
         builder.Services.AddDbContext<PlayerDbContext>(builder.Configuration, builder.Environment);
+        builder.Services.AddDbContext<TeamDbContext>(builder.Configuration, builder.Environment);
 
         // interceptors
         builder.Services.AddScoped<AuditableEntitySaveChangesInterceptor>();
@@ -24,6 +25,7 @@ public static class PersistenceRegistration
         builder.Services.AddScoped<DataEntitySaveChangesInterceptor>();
         builder.Services.AddScoped<UserEntitySaveChangesInterceptor>();
         builder.Services.AddScoped<PlayerEntitySaveChangesInterceptor>();
+        builder.Services.AddScoped<TeamEntitySaveChangesInterceptor>();
 
         // contexts by interfaces
         builder.Services.AddScoped<IMetadataDbContext, MetadataDbContext>();
@@ -31,6 +33,7 @@ public static class PersistenceRegistration
         builder.Services.AddScoped<IIdentityDbContext, IdentityDbContext>();
         builder.Services.AddScoped<IInviteDbContext, InviteDbContext>();
         builder.Services.AddScoped<IPlayerDbContext, PlayerDbContext>();
+        builder.Services.AddScoped<ITeamDbContext, TeamDbContext>();
 
         // repositories
         builder.Services.AddRepositories(builder.Configuration);

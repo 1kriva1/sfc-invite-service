@@ -1,6 +1,6 @@
 param([string]$key='') 
 
-Write-Host "Contracts nuget package updating is starting"
+Write-Host "Messages nuget package updating is starting"
 
 cd ".\src\Contracts\SFC.Invite.Messages"
 
@@ -24,4 +24,4 @@ cd "..\"
 
 cd "..\"
 
-Write-Host "Contracts nuget package updating is finished!"
+Write-Host "Messages nuget package updating is finished!"

@@ -5,23 +5,16 @@ using MassTransit;
 using MediatR;
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
-using SFC.Data.Messages.Events;
+using SFC.Data.Messages.Events.Data;
 using SFC.Invite.Application.Features.Data.Commands.Reset;
 using SFC.Invite.Infrastructure.Extensions;
 using SFC.Invite.Infrastructure.Settings.RabbitMq;
 
 namespace SFC.Invite.Infrastructure.Consumers.Data;
-public class DataInitializedConsumer(
-    IMapper mapper,
-    ILogger<DataInitializedConsumer> logger,
-    ISender mediator) : IConsumer<DataInitialized>
+public class DataInitializedConsumer(IMapper mapper, ISender mediator) : IConsumer<DataInitialized>
 {
     private readonly IMapper _mapper = mapper;
-#pragma warning disable CA1823 // Avoid unused private fields
-    private readonly ILogger<DataInitializedConsumer> _logger = logger;
-#pragma warning restore CA1823 // Avoid unused private fields
     private readonly ISender _mediator = mediator;
 
     public async Task Consume(ConsumeContext<DataInitialized> context)
@@ -39,7 +32,7 @@ public class DataInitializedDefinition : ConsumerDefinition<DataInitializedConsu
 {
     private readonly RabbitMqSettings _settings;
 
-    private Exchange Exchange { get { return _settings.Exchanges.Data.Value.Init; } }
+    private Exchange Exchange { get { return _settings.Exchanges.Data.Value.Data.Source.Initialized; } }
 
     public DataInitializedDefinition(IConfiguration configuration)
     {

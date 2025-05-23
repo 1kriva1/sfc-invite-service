@@ -1,5 +1,7 @@
-﻿namespace SFC.Invite.Infrastructure.Settings.RabbitMq.Exchanges;
+﻿using SFC.Invite.Infrastructure.Settings.RabbitMq.Exchanges.Common.Data;
+
+namespace SFC.Invite.Infrastructure.Settings.RabbitMq.Exchanges;
 public class DataExchangeValue
 {
-    public Exchange Init { get; set; } = default!;
+    public DataExchange Data { get; set; } = default!;
 }

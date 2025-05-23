@@ -3,9 +3,9 @@
 using SFC.Invite.Infrastructure.Persistence.Interceptors;
 
 namespace SFC.Invite.Infrastructure.Persistence.Contexts;
-public abstract class BaseDbContext<T>(
-    DbContextOptions<T> options,
-    DispatchDomainEventsSaveChangesInterceptor eventsInterceptor) : DbContext(options) where T : DbContext
+public abstract class BaseDbContext<TContext>(
+    DbContextOptions<TContext> options,
+    DispatchDomainEventsSaveChangesInterceptor eventsInterceptor) : DbContext(options) where TContext : DbContext
 {
     private readonly DispatchDomainEventsSaveChangesInterceptor _eventsInterceptor = eventsInterceptor;
 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>SFC.Invite.Messages</PackageId>
-    <Version>0.0.1</Version>
+    <Version>0.0.9</Version>
     <Authors>Andrii Kryvoruk</Authors>
     <Company>SFC</Company>
     <Product>SFC</Product>

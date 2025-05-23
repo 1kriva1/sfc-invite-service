@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SFC.Invite.Infrastructure.Persistence.Interceptors;
+
 using SFC.Invite.Application.Interfaces.Persistence.Context;
-using SFC.Invite.Domain.Entities.Player;
-using SFC.Invite.Infrastructure.Persistence.Constants;
+using SFC.Invite.Domain.Entities.Player.General;
 using SFC.Invite.Infrastructure.Persistence.Configurations.Player;
+using SFC.Invite.Infrastructure.Persistence.Constants;
+using SFC.Invite.Infrastructure.Persistence.Interceptors;
 
 namespace SFC.Invite.Infrastructure.Persistence.Contexts;
 public class PlayerDbContext(
-   DbContextOptions<PlayerDbContext> options,
+    DbContextOptions<PlayerDbContext> options,
     AuditableEntitySaveChangesInterceptor auditableInterceptor,
     UserEntitySaveChangesInterceptor userEntityInterceptor,
     DispatchDomainEventsSaveChangesInterceptor eventsInterceptor)
@@ -40,14 +41,17 @@ public class PlayerDbContext(
 
         modelBuilder.HasDefaultSchema(DatabaseConstants.PlayerSchemaName);
 
-        // player
-        ApplyPlayerConfigurations(modelBuilder);
-
         // data
         DataDbContext.ApplyDataConfigurations(modelBuilder);
 
         // identity
         IdentityDbContext.ApplyIdentityConfigurations(modelBuilder, Database.IsSqlServer());
+
+        // player
+        ApplyPlayerConfigurations(modelBuilder);
+
+        // team
+        TeamDbContext.ApplyTeamConfigurations(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
     }

@@ -34,44 +34,24 @@ public class AuditableEntitySaveChangesInterceptor(
         if (context == null) return;
 
         SetAuditableEntities(context);
-
-        SetAuditableReferenceEntities(context);
     }
 
     private void SetAuditableEntities(DbContext context)
     {
         IEnumerable<EntityEntry<IAuditableEntity>> auditableEntries = context.ChangeTracker.Entries<IAuditableEntity>();
 
-        Guid? userId = _userService.GetUserId();
-
         foreach (EntityEntry<IAuditableEntity> entry in auditableEntries)
         {
-            if (entry.State == EntityState.Added)
-            {
-                if (userId.HasValue)
-                    entry.Entity.CreatedBy = userId.Value;
+            Guid? userId = _userService.GetUserId();
 
-                entry.Entity.CreatedDate = _dateTimeService.Now;
+            if (!userId.HasValue)
+            {
+                IUserEntity? userEntity = entry.Entity as IUserEntity;
+
+                if (userEntity is not null)
+                    userId = userEntity.UserId;
             }
 
-            if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
-            {
-                if (userId.HasValue)
-                    entry.Entity.LastModifiedBy = userId.Value;
-
-                entry.Entity.LastModifiedDate = _dateTimeService.Now;
-            }
-        }
-    }
-
-    private void SetAuditableReferenceEntities(DbContext context)
-    {
-        IEnumerable<EntityEntry<IAuditableReferenceEntity>> auditableReferenceEntries = context.ChangeTracker.Entries<IAuditableReferenceEntity>();
-
-        Guid? userId = _userService.GetUserId();
-
-        foreach (EntityEntry<IAuditableReferenceEntity> entry in auditableReferenceEntries)
-        {
             if (entry.State == EntityState.Added)
             {
                 if (userId.HasValue)

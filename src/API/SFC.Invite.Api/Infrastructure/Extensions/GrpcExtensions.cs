@@ -1,5 +1,4 @@
-﻿using SFC.Invite.Api.Infrastructure.Extensions;
-using SFC.Invite.Api.Services;
+﻿using SFC.Invite.Api.Services;
 using SFC.Invite.Infrastructure.Constants;
 using SFC.Invite.Infrastructure.Extensions;
 using SFC.Invite.Infrastructure.Settings;
@@ -14,12 +13,16 @@ public static class GrpcExtensions
 
         if (settings?.Endpoints?.TryGetValue(SettingConstants.KestrelInternalEndpoint, out KestrelEndpointSettings? endpoint) ?? false)
         {
-            app.MapGrpcService<InviteService>()
+            app.MapGrpcService<InviteDataService>()
+               .MapInternalService(endpoint.Url);
+
+            app.MapGrpcService<TeamPlayerInviteService>()
                .MapInternalService(endpoint.Url);
         }
         else
         {
-            app.MapGrpcService<InviteService>();
+            app.MapGrpcService<InviteDataService>();
+            app.MapGrpcService<TeamPlayerInviteService>();
         }
 
         return app;
@@ -30,8 +33,8 @@ public static class GrpcExtensions
     /// RequireHost distinguish webapi and grpc by port value
     /// Also required Kestrel endpoint configuration in appSettings
     /// </summary>
-    /// <param name="builder"></param>
-    /// <param name="url"></param>
+    /// <param name="builder">Grpc endpoint builder</param>
+    /// <param name="url">Endpoint URL</param>
     private static void MapInternalService(this GrpcServiceEndpointConventionBuilder builder, string url)
         => builder.RequireHost($"*:{new Uri(url).Port}");
 }

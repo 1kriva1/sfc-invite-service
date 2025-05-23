@@ -24,4 +24,10 @@ public static class AuthorizationExtensions
         PolicyModel ownTeam = AuthorizationPolicies.OwnPlayer(claims);
         options.AddPolicy(ownTeam.Name, ownTeam.Policy);
     }
+
+    public static void AddOwnTeamPolicy(this AuthorizationOptions options, IDictionary<string, IEnumerable<string>> claims)
+    {
+        PolicyModel ownTeam = AuthorizationPolicies.OwnTeam(claims);
+        options.AddPolicy(ownTeam.Name, ownTeam.Policy);
+    }
 }

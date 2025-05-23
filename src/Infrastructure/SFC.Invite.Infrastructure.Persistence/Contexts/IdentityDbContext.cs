@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using SFC.Invite.Application.Interfaces.Persistence.Context;
-using SFC.Invite.Domain.Entities.Identity;
+using SFC.Invite.Domain.Entities.Identity.General;
 using SFC.Invite.Infrastructure.Persistence.Configurations.Identity;
 using SFC.Invite.Infrastructure.Persistence.Constants;
 using SFC.Invite.Infrastructure.Persistence.Interceptors;

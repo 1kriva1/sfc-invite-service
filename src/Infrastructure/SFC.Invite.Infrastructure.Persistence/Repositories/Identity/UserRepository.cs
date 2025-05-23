@@ -1,7 +1,8 @@
 ﻿using SFC.Invite.Application.Interfaces.Persistence.Repository.Identity;
-using SFC.Invite.Domain.Entities.Identity;
+using SFC.Invite.Domain.Entities.Identity.General;
 using SFC.Invite.Infrastructure.Persistence.Contexts;
 using SFC.Invite.Infrastructure.Persistence.Extensions;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Common;
 
 namespace SFC.Invite.Infrastructure.Persistence.Repositories.Identity;
 public class UserRepository(IdentityDbContext context)

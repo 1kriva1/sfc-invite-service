@@ -1,4 +1,4 @@
-﻿using SFC.Invite.Domain.Entities.Player;
+﻿using SFC.Invite.Domain.Entities.Player.General;
 
 namespace SFC.Invite.Application.Interfaces.Persistence.Context;
 public interface IPlayerDbContext : IDbContext

@@ -2,10 +2,10 @@
 
 using Microsoft.Extensions.Configuration;
 
+using SFC.Identity.Messages.Commands.User;
 using SFC.Invite.Application.Interfaces.Identity;
 using SFC.Invite.Infrastructure.Extensions;
 using SFC.Invite.Infrastructure.Settings.RabbitMq;
-using SFC.Identity.Messages.Commands;
 
 namespace SFC.Invite.Infrastructure.Services.Identity;
 public class UserSeedService(IBus bus, IConfiguration configuration) : IUserSeedService

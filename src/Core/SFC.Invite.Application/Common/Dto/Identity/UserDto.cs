@@ -1,9 +1,9 @@
-﻿using SFC.Invite.Application.Common.Mappings.Interfaces;
-using SFC.Invite.Application.Features.Common.Dto.Base;
-using SFC.Invite.Domain.Entities.Identity;
+﻿using SFC.Invite.Application.Common.Dto.Common;
+using SFC.Invite.Application.Common.Mappings.Interfaces;
+using SFC.Invite.Domain.Entities.Identity.General;
 
 namespace SFC.Invite.Application.Common.Dto.Identity;
-public class UserDto : BaseAuditableDto, IMapTo<User>
+public class UserDto : AuditableDto, IMapTo<User>
 {
     public Guid Id { get; set; }
 }

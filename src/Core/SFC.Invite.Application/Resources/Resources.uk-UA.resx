@@ -171,4 +171,31 @@
   <data name="PlayerNotFound" xml:space="preserve">
     <value>Гравець не знайдений.</value>
   </data>
+  <data name="TeamNotFound" xml:space="preserve">
+    <value>Команда не знайдена.</value>
+  </data>
+  <data name="PlayerAlreadyInTeam" xml:space="preserve">
+    <value>Гравець вже в команді.</value>
+  </data>
+  <data name="TeamPlayerInviteActiveAlreadyExist" xml:space="preserve">
+    <value>Активне запрошення гравця в команду вже існує.</value>
+  </data>
+  <data name="InviteAlreadyFinalized" xml:space="preserve">
+    <value>Запрошення граця в команду вже закрите.</value>
+  </data>
+  <data name="TeamPlayerNotFound" xml:space="preserve">
+    <value>Такого гравця в команді немає.</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Актуальний</value>
+  </data>
+  <data name="Accepted" xml:space="preserve">
+    <value>Прийнятий</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Скасований</value>
+  </data>
+  <data name="Refused" xml:space="preserve">
+    <value>Відмовлено</value>
+  </data>
 </root>
