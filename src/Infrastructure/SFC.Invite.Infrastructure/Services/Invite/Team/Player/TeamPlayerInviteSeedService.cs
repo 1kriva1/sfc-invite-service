@@ -30,10 +30,10 @@ public class TeamPlayerInviteSeedService(
 
     private static readonly IEnumerable<(InviteStatusEnum, long)> TEAM_IDS =
     [
-        (InviteStatusEnum.Actual, 1),
-        (InviteStatusEnum.Actual, 2),
-        (InviteStatusEnum.Actual, 3),
-        (InviteStatusEnum.Actual, 4),
+        (InviteStatusEnum.Accepted, 1),
+        (InviteStatusEnum.Accepted, 2),
+        (InviteStatusEnum.Accepted, 3),
+        (InviteStatusEnum.Accepted, 4),
         (InviteStatusEnum.Accepted, 5),
         (InviteStatusEnum.Accepted, 6),
         (InviteStatusEnum.Accepted, 7),
@@ -45,7 +45,11 @@ public class TeamPlayerInviteSeedService(
         (InviteStatusEnum.Refused, 13),
         (InviteStatusEnum.Refused, 14),
         (InviteStatusEnum.Refused, 15),
-        (InviteStatusEnum.Refused, 16)
+        (InviteStatusEnum.Refused, 16),
+        (InviteStatusEnum.Actual, 17),
+        (InviteStatusEnum.Actual, 18),
+        (InviteStatusEnum.Actual, 19),
+        (InviteStatusEnum.Actual, 20)
     ];
     private static readonly List<long> PLAYER_IDS = [20, 21, 22, 23, 24, 25];
 

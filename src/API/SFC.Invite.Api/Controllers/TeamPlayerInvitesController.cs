@@ -4,16 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 using SFC.Invite.Api.Infrastructure.Extensions;
 using SFC.Invite.Api.Infrastructure.Models.Base;
 using SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create;
+using SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.CreateRange;
+using SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Exist;
 using SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Find;
 using SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Get;
+using SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.GetAll;
+using SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Update.General;
 using SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Update.Refuse;
 using SFC.Invite.Api.Infrastructure.Models.Pagination;
 using SFC.Invite.Application.Features.Common.Base;
 using SFC.Invite.Application.Features.Invite.Team.Player.Commands.Create;
+using SFC.Invite.Application.Features.Invite.Team.Player.Commands.CreateRange;
 using SFC.Invite.Application.Features.Invite.Team.Player.Commands.Update;
+using SFC.Invite.Application.Features.Invite.Team.Player.Queries.Exist;
 using SFC.Invite.Application.Features.Invite.Team.Player.Queries.Find;
 using SFC.Invite.Application.Features.Invite.Team.Player.Queries.Find.Dto.Filters;
 using SFC.Invite.Application.Features.Invite.Team.Player.Queries.Get;
+using SFC.Invite.Application.Features.Invite.Team.Player.Queries.GetAll;
 using SFC.Invite.Infrastructure.Constants;
 
 namespace SFC.Invite.Api.Controllers;
@@ -29,6 +36,32 @@ namespace SFC.Invite.Api.Controllers;
 [ProducesResponseType(typeof(BaseResponse), StatusCodes.Status401Unauthorized)]
 public class TeamPlayerInvitesController : ApiControllerBase
 {
+    /// <summary>
+    /// Check if team player invite exist.
+    /// </summary>
+    /// <param name="teamId">Team Id.</param>
+    /// <param name="playerId">Player Id.</param>
+    /// <param name="status">Team player status Id.</param>
+    /// <returns>An ActionResult of type TeamPlayerInviteExistResponse</returns>
+    /// <response code="200">Returns team player invite existence check result.</response>
+    /// <response code="401">Returns when **failed** authentication.</response>
+    /// <response code="403">Returns when **failed** authorization.</response>
+    [HttpGet("Teams/{teamId}/Players/{playerId}")]
+    [Authorize(Policy.OwnTeam)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(BaseResponse), StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult<TeamPlayerInviteExistResponse>> TeamPlayerInviteExistAsync(
+        [FromRoute] long teamId, [FromRoute] long playerId, [FromQuery] int? status)
+    {
+        TeamPlayerInviteExistQuery query = new() { TeamId = teamId, PlayerId = playerId, Status = (InviteStatusEnum?)status };
+
+        TeamPlayerInviteExistViewModel model = await Mediator.Send(query)
+                                                             .ConfigureAwait(false);
+
+        return Ok(Mapper.Map<TeamPlayerInviteExistResponse>(model));
+    }
+
     /// <summary>
     /// Create new team invite for player.
     /// </summary>
@@ -59,8 +92,60 @@ public class TeamPlayerInvitesController : ApiControllerBase
                                                               .ConfigureAwait(false);
 
         return CreatedAtRoute("GetTeamPlayerInvite",
-            new { teamId = model.Invite.TeamId, playerId = model.Invite.Player.Id, inviteId = model.Invite.Id },
+            new { teamId = model.Invite.Team.Id, playerId = model.Invite.Player.Id, inviteId = model.Invite.Id },
             Mapper.Map<CreateTeamPlayerInviteResponse>(model));
+    }
+
+    /// <summary>
+    /// Create new team invites for players.
+    /// </summary>
+    /// <param name="teamId">Team Id.</param>
+    /// <param name="request">Create team invites for players request.</param>
+    /// <returns>An ActionResult of type CreateTeamPlayerInvitesResponse</returns>
+    /// <response code="200">Returns **new** created team player invites.</response>
+    /// <response code="400">Returns **validation** errors.</response>
+    /// <response code="401">Returns when **failed** authentication.</response>
+    /// <response code="403">Returns when **failed** authorization.</response>
+    /// <response code="409">Returns when **flow validation** errors.</response>
+    [HttpPost("Teams/{teamId}")]
+    [Authorize(Policy.OwnTeam)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(BaseResponse), StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(BaseResponse), StatusCodes.Status409Conflict)]
+    public async Task<ActionResult<CreateTeamPlayerInvitesResponse>> CreateTeamPlayerInvitesAsync(
+        [FromRoute] long teamId, [FromBody] CreateTeamPlayerInvitesRequest request)
+    {
+        CreateTeamPlayerInvitesCommand command = Mapper.Map<CreateTeamPlayerInvitesCommand>(request)
+                                                       .SetTeamId(teamId);
+
+        CreateTeamPlayerInvitesViewModel model = await Mediator.Send(command)
+                                                               .ConfigureAwait(false);
+
+        return Ok(Mapper.Map<CreateTeamPlayerInvitesResponse>(model));
+    }
+
+    [HttpPut("{inviteId}/Teams/{teamId}/Players/{playerId}")]
+    [Authorize(Policy.OwnTeam)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(BaseErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(BaseResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(BaseResponse), StatusCodes.Status409Conflict)]
+    public async Task<ActionResult> UpdateTeamPlayerInviteAsync(
+        [FromRoute] long teamId, [FromRoute] long playerId, [FromRoute] long inviteId, [FromBody] UpdateTeamPlayerInviteRequest request)
+    {
+        UpdateTeamPlayerInviteCommand command = Mapper.Map<UpdateTeamPlayerInviteCommand>(request)
+                                                      .SetId(inviteId)
+                                                      .SetTeamId(teamId)
+                                                      .SetPlayerId(playerId);
+
+        await Mediator.Send(command)
+                      .ConfigureAwait(false);
+
+        return NoContent();
     }
 
     /// <summary>
@@ -189,21 +274,45 @@ public class TeamPlayerInvitesController : ApiControllerBase
     }
 
     /// <summary>
+    /// Return team player invite models by team Id.
+    /// </summary>
+    /// <param name="teamId">Team unique identifier.</param>
+    /// <returns>An ActionResult of type GetAllTeamPlayerInvitesResponse</returns>
+    /// <response code="200">Returns team player invite models.</response>
+    /// <response code="401">Returns when **failed** authentication.</response>
+    [HttpGet("Teams/{teamId}/Players")]
+    [Authorize(Policy.General)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<GetAllTeamPlayerInvitesResponse>> GetTeamPlayerInvitesAsync([FromRoute] long teamId)
+    {
+        GetAllTeamPlayerInvitesQuery query = new() { TeamId = teamId };
+
+        GetAllTeamPlayerInvitesViewModel teamPlayerInvites = await Mediator.Send(query)
+                                                               .ConfigureAwait(false);
+
+        return Ok(Mapper.Map<GetAllTeamPlayerInvitesResponse>(teamPlayerInvites));
+    }
+
+    /// <summary>
     /// Return list of team player invites.
     /// </summary>
+    /// <param name="teamId">Team unique identifier.</param>
     /// <param name="request">Get team player invites request.</param>
     /// <returns>An ActionResult of type GetTeamPlayerInvitesResponse</returns>
     /// <response code="200">Returns list of team player invites with pagination header.</response>
     /// <response code="400">Returns **validation** errors.</response>
     /// <response code="401">Returns when **failed** authentication.</response>
-    [HttpGet("Teams/Players/Find")]
+    [HttpGet("Teams/{teamId}/Players/Find")]
     [Authorize(Policy.General)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BaseErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<GetTeamPlayerInvitesResponse>> GetTeamPlayerInvitesAsync([FromQuery] GetTeamPlayerInvitesRequest request)
+    public async Task<ActionResult<GetTeamPlayerInvitesResponse>> GetTeamPlayerInvitesAsync([FromRoute] long teamId, [FromQuery] GetTeamPlayerInvitesRequest request)
     {
-        BasePaginationRequest<GetTeamPlayerInvitesViewModel, GetTeamPlayerInvitesFilterDto> query = Mapper.Map<GetTeamPlayerInvitesQuery>(request);
+        BasePaginationRequest<GetTeamPlayerInvitesViewModel, GetTeamPlayerInvitesFilterDto> query =
+            Mapper.Map<GetTeamPlayerInvitesQuery>(request)
+                  .SetTeamId(teamId);
 
         GetTeamPlayerInvitesViewModel result = await Mediator.Send(query)
                                                              .ConfigureAwait(false);

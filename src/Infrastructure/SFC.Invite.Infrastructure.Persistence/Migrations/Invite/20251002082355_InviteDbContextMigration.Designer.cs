@@ -12,7 +12,7 @@ using SFC.Invite.Infrastructure.Persistence.Contexts;
 namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
 {
     [DbContext(typeof(InviteDbContext))]
-    [Migration("20250317094311_InviteDbContextMigration")]
+    [Migration("20251002082355_InviteDbContextMigration")]
     partial class InviteDbContextMigration
     {
         /// <inheritdoc />
@@ -176,7 +176,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("WorkingFoots", "Data");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Identity.User", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Identity.General.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
@@ -226,25 +226,25 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                         new
                         {
                             Id = 0,
-                            CreatedDate = new DateTime(2025, 3, 17, 9, 43, 11, 618, DateTimeKind.Utc).AddTicks(6692),
+                            CreatedDate = new DateTime(2025, 10, 2, 8, 23, 54, 839, DateTimeKind.Utc).AddTicks(2027),
                             Title = "Actual"
                         },
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 3, 17, 9, 43, 11, 618, DateTimeKind.Utc).AddTicks(6704),
+                            CreatedDate = new DateTime(2025, 10, 2, 8, 23, 54, 839, DateTimeKind.Utc).AddTicks(2047),
                             Title = "Accepted"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 3, 17, 9, 43, 11, 618, DateTimeKind.Utc).AddTicks(6709),
+                            CreatedDate = new DateTime(2025, 10, 2, 8, 23, 54, 839, DateTimeKind.Utc).AddTicks(2054),
                             Title = "Canceled"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 3, 17, 9, 43, 11, 618, DateTimeKind.Utc).AddTicks(6713),
+                            CreatedDate = new DateTime(2025, 10, 2, 8, 23, 54, 839, DateTimeKind.Utc).AddTicks(2059),
                             Title = "Refused"
                         });
                 });
@@ -532,7 +532,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                         });
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.Player", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.Player", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint")
@@ -565,7 +565,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("Players", "Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerAvailability", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerAvailability", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -581,7 +581,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("Availabilities", "Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerAvailableDay", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerAvailableDay", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -602,7 +602,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("AvailableDays", "Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerFootballProfile", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerFootballProfile", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -650,7 +650,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("FootballProfiles", "Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerGeneralProfile", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerGeneralProfile", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -687,7 +687,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("GeneralProfiles", "Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerPhoto", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerPhoto", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -715,7 +715,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("Photos", "Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerStat", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerStat", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -741,7 +741,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("Stats", "Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerStatPoints", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerStatPoints", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -761,7 +761,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("Points", "Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerTag", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerTag", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -905,6 +905,21 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.ToTable("GeneralProfiles", "Team");
                 });
 
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Team.General.TeamInventaryProfile", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("HasManiches")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InventaryProfiles", "Team");
+                });
+
             modelBuilder.Entity("SFC.Invite.Domain.Entities.Team.General.TeamLogo", b =>
                 {
                     b.Property<long>("Id")
@@ -1041,15 +1056,15 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Identity.User", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Identity.General.User", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("LastModifiedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -1058,19 +1073,19 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
 
             modelBuilder.Entity("SFC.Invite.Domain.Entities.Invite.Team.Player.TeamPlayerInvite", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("LastModifiedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.Player", "Player")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.Player", "Player")
                         .WithMany("TeamInvites")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -1088,7 +1103,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1126,41 +1141,41 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.Player", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.Player", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("LastModifiedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithOne()
-                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.Player", "UserId")
+                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.General.Player", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerAvailability", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerAvailability", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.Player", "Player")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.Player", "Player")
                         .WithOne("Availability")
-                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.PlayerAvailability", "Id")
+                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.General.PlayerAvailability", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerAvailableDay", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerAvailableDay", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.PlayerAvailability", "Availability")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.PlayerAvailability", "Availability")
                         .WithMany("Days")
                         .HasForeignKey("AvailabilityId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1169,7 +1184,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.Navigation("Availability");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerFootballProfile", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerFootballProfile", b =>
                 {
                     b.HasOne("SFC.Invite.Domain.Entities.Data.FootballPosition", null)
                         .WithMany()
@@ -1179,9 +1194,9 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                         .WithMany()
                         .HasForeignKey("GameStyleId");
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.Player", "Player")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.Player", "Player")
                         .WithOne("FootballProfile")
-                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.PlayerFootballProfile", "Id")
+                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.General.PlayerFootballProfile", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1196,31 +1211,31 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerGeneralProfile", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerGeneralProfile", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.Player", "Player")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.Player", "Player")
                         .WithOne("GeneralProfile")
-                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.PlayerGeneralProfile", "Id")
+                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.General.PlayerGeneralProfile", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerPhoto", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerPhoto", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.Player", "Player")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.Player", "Player")
                         .WithOne("Photo")
-                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.PlayerPhoto", "Id")
+                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.General.PlayerPhoto", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerStat", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerStat", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.Player", "Player")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.Player", "Player")
                         .WithMany("Stats")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1237,20 +1252,20 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerStatPoints", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerStatPoints", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.Player", "Player")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.Player", "Player")
                         .WithOne("Points")
-                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.PlayerStatPoints", "Id")
+                        .HasForeignKey("SFC.Invite.Domain.Entities.Player.General.PlayerStatPoints", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerTag", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerTag", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.Player", "Player")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.Player", "Player")
                         .WithMany("Tags")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1261,19 +1276,19 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
 
             modelBuilder.Entity("SFC.Invite.Domain.Entities.Team.General.Team", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("LastModifiedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1307,6 +1322,17 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.HasOne("SFC.Invite.Domain.Entities.Team.General.Team", "Team")
                         .WithOne("GeneralProfile")
                         .HasForeignKey("SFC.Invite.Domain.Entities.Team.General.TeamGeneralProfile", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Team.General.TeamInventaryProfile", b =>
+                {
+                    b.HasOne("SFC.Invite.Domain.Entities.Team.General.Team", "Team")
+                        .WithOne("InventaryProfile")
+                        .HasForeignKey("SFC.Invite.Domain.Entities.Team.General.TeamInventaryProfile", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1354,19 +1380,19 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
 
             modelBuilder.Entity("SFC.Invite.Domain.Entities.Team.Player.TeamPlayer", b =>
                 {
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("LastModifiedBy")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Player.Player", "Player")
+                    b.HasOne("SFC.Invite.Domain.Entities.Player.General.Player", "Player")
                         .WithMany("Teams")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -1384,7 +1410,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SFC.Invite.Domain.Entities.Identity.User", null)
+                    b.HasOne("SFC.Invite.Domain.Entities.Identity.General.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1405,7 +1431,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.Navigation("Types");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.Player", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.Player", b =>
                 {
                     b.Navigation("Availability")
                         .IsRequired();
@@ -1431,7 +1457,7 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                     b.Navigation("Teams");
                 });
 
-            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.PlayerAvailability", b =>
+            modelBuilder.Entity("SFC.Invite.Domain.Entities.Player.General.PlayerAvailability", b =>
                 {
                     b.Navigation("Days");
                 });
@@ -1444,6 +1470,9 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                         .IsRequired();
 
                     b.Navigation("GeneralProfile")
+                        .IsRequired();
+
+                    b.Navigation("InventaryProfile")
                         .IsRequired();
 
                     b.Navigation("Logo");

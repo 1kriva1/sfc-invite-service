@@ -23,9 +23,12 @@ public enum RequestId
     UpdateTeamPlayer,
     CreateTeamPlayers,
     // core
+    TeamPlayerInviteExist,
     GetAllInviteData,
     CreateTeamPlayerInvite,
+    CreateTeamPlayerInvites,
     UpdateTeamPlayerInvite,
     GetTeamPlayerInvite,
+    GetAllTeamPlayerInvites,
     GetTeamPlayerInvites,
 }

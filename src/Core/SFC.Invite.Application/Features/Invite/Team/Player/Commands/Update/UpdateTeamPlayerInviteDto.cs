@@ -16,6 +16,9 @@ public class UpdateTeamPlayerInviteDto : IMapTo<TeamPlayerInvite>
 
     public string? PlayerComment { get; set; }
 
+    public string? TeamComment { get; set; }
+
     public void Mapping(Profile profile) => profile.CreateMap<UpdateTeamPlayerInviteDto, TeamPlayerInvite>()
+                                                   .ForMember(dest => dest.TeamComment, opt => opt.Condition(src => src.TeamComment != null))
                                                    .ForMember(p => p.StatusId, d => d.MapFrom(z => z.Status));
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
-using SFC.Invite.Api.Infrastructure.Models.Player.Result;
+using SFC.Invite.Api.Infrastructure.Models.Player;
+using SFC.Invite.Api.Infrastructure.Models.Team.General;
 using SFC.Invite.Application.Common.Mappings.Interfaces;
 using SFC.Invite.Application.Features.Invite.Team.Player.Common.Dto;
 
@@ -24,7 +25,7 @@ public class TeamPlayerInviteModel : IMapFrom<TeamPlayerInviteDto>
     /// <summary>
     /// Team invite related to this team.
     /// </summary>
-    public required TeamPlayerInviteTeamModel Team { get; set; }
+    public required TeamModel Team { get; set; }
 
     /// <summary>
     /// Team player invite status.
@@ -42,6 +43,5 @@ public class TeamPlayerInviteModel : IMapFrom<TeamPlayerInviteDto>
     public string? PlayerComment { get; set; }
 
     public void Mapping(Profile profile) => profile.CreateMap<TeamPlayerInviteDto, TeamPlayerInviteModel>()
-                                                   .ForMember(p => p.Status, d => d.MapFrom(z => z.StatusId))
-                                                   .ForMember(p => p.Team, d => d.MapFrom(z => z.TeamId));
+                                                   .ForMember(p => p.Status, d => d.MapFrom(z => z.StatusId));
 }
