@@ -3,6 +3,8 @@
 namespace SFC.Invite.Application.Features.Invite.Team.Player.Queries.Find.Dto.Filters;
 public class GetTeamPlayerInvitesFilterDto
 {
+    public long TeamId { get; set; }
+
     public GetTeamPlayerInvitesInviteFilterDto? Invite { get; set; }
 
     public PlayerFilterDto? Player { get; set; }

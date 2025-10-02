@@ -5,7 +5,7 @@ using SFC.Invite.Application.Common.Mappings.Interfaces;
 using SFC.Invite.Domain.Entities.Team.General;
 
 namespace SFC.Invite.Application.Common.Dto.Team.General;
-public class TeamGeneralProfileDto : IMapFrom<TeamEntity>, IMapTo<TeamGeneralProfile>
+public class TeamGeneralProfileDto : IMapFrom<TeamEntity>, IMapToReverse<TeamGeneralProfile>
 {
     public required string Name { get; set; }
 
@@ -31,6 +31,7 @@ public class TeamGeneralProfileDto : IMapFrom<TeamEntity>, IMapTo<TeamGeneralPro
                .ReverseMap();
 
         profile.CreateMap<TeamGeneralProfileDto, TeamGeneralProfile>()
-               .IgnoreAllNonExisting();
+               .IgnoreAllNonExisting()
+               .ReverseMap();
     }
 }

@@ -12,14 +12,7 @@ public class PlayerRepository(PlayerDbContext context)
     public override Task<PlayerEntity?> GetByIdAsync(long id)
     {
         return Context.Players
-                    .Include(p => p.GeneralProfile)
-                    .Include(p => p.FootballProfile)
-                    .Include(p => p.Availability)
-                    .Include(p => p.Availability.Days)
-                    .Include(p => p.Points)
-                    .Include(p => p.Tags)
-                    .Include(p => p.Stats)
-                    .Include(p => p.Photo)
+                    .IncludePlayer()
                     .FirstOrDefaultAsync(p => p.Id == id);
     }
 

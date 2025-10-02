@@ -15,14 +15,7 @@ public class TeamPlayerRepository(TeamDbContext context)
     public override Task<PagedList<TeamPlayer>> FindAsync(FindParameters<TeamPlayer> parameters)
     {
         return Context.TeamPlayers
-                      .Include(x => x.Player).ThenInclude(p => p.GeneralProfile)
-                      .Include(x => x.Player).ThenInclude(p => p.FootballProfile)
-                      .Include(x => x.Player).ThenInclude(p => p.Availability)
-                      .Include(x => x.Player).ThenInclude(p => p.Availability.Days)
-                      .Include(x => x.Player).ThenInclude(p => p.Points)
-                      .Include(x => x.Player).ThenInclude(p => p.Tags)
-                      .Include(x => x.Player).ThenInclude(p => p.Stats)
-                      .Include(x => x.Player).ThenInclude(p => p.Photo)
+                      .ThanIncludePlayer()
                       .AsQueryable()
                       .PaginateAsync(parameters);
     }
@@ -30,6 +23,11 @@ public class TeamPlayerRepository(TeamDbContext context)
     public Task<TeamPlayer?> GetByIdAsync(long teamId, long playerId)
     {
         return Context.TeamPlayers.FirstOrDefaultAsync(item => item.TeamId == teamId && item.Player.Id == playerId);
+    }
+
+    public Task<bool> AnyAsync(long id)
+    {
+        return Context.TeamPlayers.AnyAsync(item => item.Id == id);
     }
 
     public Task<bool> AnyAsync(long teamId, long playerId)

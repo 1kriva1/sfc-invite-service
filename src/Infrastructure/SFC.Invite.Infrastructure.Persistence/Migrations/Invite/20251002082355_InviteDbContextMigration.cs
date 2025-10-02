@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -632,6 +631,26 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                 });
 
             migrationBuilder.CreateTable(
+                name: "InventaryProfiles",
+                schema: "Team",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    HasManiches = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventaryProfiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InventaryProfiles_Teams_Id",
+                        column: x => x.Id,
+                        principalSchema: "Team",
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Logos",
                 schema: "Team",
                 columns: table => new
@@ -866,10 +885,10 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
                 columns: new[] { "Id", "CreatedDate", "Title" },
                 values: new object[,]
                 {
-                    { 0, new DateTime(2025, 3, 17, 9, 43, 11, 618, DateTimeKind.Utc).AddTicks(6692), "Actual" },
-                    { 1, new DateTime(2025, 3, 17, 9, 43, 11, 618, DateTimeKind.Utc).AddTicks(6704), "Accepted" },
-                    { 2, new DateTime(2025, 3, 17, 9, 43, 11, 618, DateTimeKind.Utc).AddTicks(6709), "Canceled" },
-                    { 3, new DateTime(2025, 3, 17, 9, 43, 11, 618, DateTimeKind.Utc).AddTicks(6713), "Refused" }
+                    { 0, new DateTime(2025, 10, 2, 8, 23, 54, 839, DateTimeKind.Utc).AddTicks(2027), "Actual" },
+                    { 1, new DateTime(2025, 10, 2, 8, 23, 54, 839, DateTimeKind.Utc).AddTicks(2047), "Accepted" },
+                    { 2, new DateTime(2025, 10, 2, 8, 23, 54, 839, DateTimeKind.Utc).AddTicks(2054), "Canceled" },
+                    { 3, new DateTime(2025, 10, 2, 8, 23, 54, 839, DateTimeKind.Utc).AddTicks(2059), "Refused" }
                 });
 
             migrationBuilder.InsertData(
@@ -1170,6 +1189,10 @@ namespace SFC.Invite.Infrastructure.Persistence.Migrations.Invite
 
             migrationBuilder.DropTable(
                 name: "GeneralProfiles",
+                schema: "Team");
+
+            migrationBuilder.DropTable(
+                name: "InventaryProfiles",
                 schema: "Team");
 
             migrationBuilder.DropTable(
