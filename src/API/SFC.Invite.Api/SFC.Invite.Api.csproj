@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  
+
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>SFC.Invite.Api.xml</DocumentationFile>
@@ -7,15 +7,22 @@
     <HUSKY>True</HUSKY>
     <UserSecretsId>ba0164db-259b-4547-b85f-406cf8594091</UserSecretsId>
   </PropertyGroup>
-  
+
+  <PropertyGroup>
+    <DockerfileFile>Dockerfile</DockerfileFile>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Hangfire.Dashboard.BasicAuthorization" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
@@ -24,18 +31,36 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\..\Core\SFC.Invite.Application\SFC.Invite.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SFC.Invite.Infrastructure.Persistence\SFC.Invite.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SFC.Invite.Infrastructure\SFC.Invite.Infrastructure.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Folder Include="Infrastructure\Models\Invite\Game\Team\" />
     <Folder Include="Infrastructure\Models\Invite\Game\Player\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="entrypoint.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="entrypoint.Common.sh">
+      <DependentUpon>entrypoint.sh</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="entrypoint.Development.sh">
+      <DependentUpon>entrypoint.sh</DependentUpon>
+    </None>
+    <None Include="entrypoint.sh" />
   </ItemGroup>
 
   <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' == True">

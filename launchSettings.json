@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "sfc-invite": "StartDebugging",
+        "sfc-rabbitmq": "StartWithoutDebugging",
+        "sfc-mssql": "StartWithoutDebugging",
+        "sfc-identity": "StartWithoutDebugging",
+        "sfc-player": "StartWithoutDebugging",
+        "sfc-data": "StartWithoutDebugging",
+        "sfc-redis": "StartWithoutDebugging",
+        "sfc-team": "StartWithoutDebugging"
+      }
+    }
+  }
+}
