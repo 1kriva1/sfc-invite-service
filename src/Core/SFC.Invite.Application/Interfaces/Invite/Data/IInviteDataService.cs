@@ -6,4 +6,6 @@ public interface IInviteDataService
     Task<GetAllInviteDataModel> GetAllInviteDataAsync();
 
     Task<GetTeamDataModel> GetTeamDataAsync();
+
+    Task PublishDataInitializedEventAsync(CancellationToken cancellationToken);
 }
