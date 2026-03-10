@@ -5,6 +5,7 @@ using SFC.Invite.Application.Interfaces.Persistence.Context;
 using SFC.Invite.Domain.Common;
 
 namespace SFC.Invite.Infrastructure.Persistence.Repositories.Common.Data;
+
 public class DataCacheRepository<TEntity, TContext, TEnum>(DataRepository<TEntity, TContext, TEnum> repository, ICache cache)
     : CacheRepository<TEntity, TContext, TEnum>(repository, cache)
      where TEntity : EnumDataEntity<TEnum>
@@ -16,7 +17,7 @@ public class DataCacheRepository<TEntity, TContext, TEnum>(DataRepository<TEntit
     public Task<bool> AnyAsync(TEnum id)
     {
         return Cache.TryGet(CacheKey, out IReadOnlyList<TEntity> list)
-        ? Task.FromResult(list.Any(u => u.Id.Equals(id)))
+            ? Task.FromResult(list.Any(u => u.Id.Equals(id)))
             : _repository.AnyAsync(id);
     }
 

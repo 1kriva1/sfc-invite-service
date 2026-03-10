@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using SFC.Invite.Application.Common.Enums;
 using SFC.Invite.Application.Interfaces.Invite.Data;
 using SFC.Invite.Application.Interfaces.Invite.Data.Models;
+using SFC.Invite.Application.Interfaces.Metadata;
 using SFC.Invite.Infrastructure.Extensions;
 using SFC.Invite.Messages.Events.Invite.Data;
 
@@ -31,26 +32,21 @@ public class DataInitializationHostedService(
         await PublishDataInitializedAsync(scope, cancellationToken).ConfigureAwait(false);
 
         // send require data
-        SendRequireDataAsync(scope, cancellationToken);
+        await SendRequireDataAsync(scope, cancellationToken).ConfigureAwait(false);
     }
 
     private static async Task PublishDataInitializedAsync(IServiceScope scope, CancellationToken cancellationToken)
     {
         IInviteDataService inviteDataService = scope.ServiceProvider.GetRequiredService<IInviteDataService>();
 
-        GetAllInviteDataModel model = await inviteDataService.GetAllInviteDataAsync().ConfigureAwait(true);
+        await inviteDataService.PublishDataInitializedEventAsync(cancellationToken).ConfigureAwait(false);
 
-        IMapper mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
+        IMetadataService metadataService = scope.ServiceProvider.GetRequiredService<IMetadataService>();
 
-        DataInitialized @event = mapper.BuildInviteDataInitializedEvent(model);
-
-        IPublishEndpoint publisher = scope.ServiceProvider.GetRequiredService<IPublishEndpoint>();
-
-        await publisher.Publish(@event, cancellationToken)
-                       .ConfigureAwait(false);
+        await metadataService.CompleteAsync(MetadataServiceEnum.Invite, MetadataDomainEnum.Data, MetadataTypeEnum.Initialization).ConfigureAwait(false);
     }
 
-    private static void SendRequireDataAsync(IServiceScope scope, CancellationToken cancellationToken)
+    private static Task SendRequireDataAsync(IServiceScope scope, CancellationToken cancellationToken)
     {
         // use bus because it is Initiator (reference to mass transit documentation)
         IBus bus = scope.ServiceProvider.GetRequiredService<IBus>();
@@ -58,5 +54,7 @@ public class DataInitializationHostedService(
         bus.Send(new SFC.Invite.Messages.Commands.Data.RequireData(), cancellationToken);
 
         bus.Send(new SFC.Invite.Messages.Commands.Team.Data.RequireData(), cancellationToken);
+
+        return Task.CompletedTask;
     }
 }
