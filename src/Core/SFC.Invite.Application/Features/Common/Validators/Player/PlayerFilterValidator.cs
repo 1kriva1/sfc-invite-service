@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 
 using SFC.Invite.Application.Common.Constants;
-using SFC.Invite.Application.Common.Dto.Player.Filters;
+using SFC.Invite.Application.Common.Dto.Player.General.Filters;
 using SFC.Invite.Application.Common.Extensions;
 using SFC.Invite.Application.Features.Common.Dto.Common;
 

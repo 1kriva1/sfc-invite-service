@@ -17,6 +17,7 @@ using SFC.Invite.Infrastructure.Interceptors.Grpc.Server;
 using SFC.Invite.Infrastructure.Services.Identity;
 using SFC.Invite.Infrastructure.Settings.Grpc;
 
+using static SFC.Game.Contracts.Services.GameService;
 using static SFC.Identity.Contracts.Services.IdentityService;
 using static SFC.Player.Contracts.Services.PlayerService;
 using static SFC.Team.Contracts.Services.TeamService;
@@ -85,6 +86,9 @@ public static class GrpcExtensions
                     break;
                 case Endpoint.Team:
                     services.Services.AddGrpcClient<TeamServiceClient>(endpoint.Value, settings.Retry, loggerFactory, environment);
+                    break;
+                case Endpoint.Game:
+                    services.Services.AddGrpcClient<GameServiceClient>(endpoint.Value, settings.Retry, loggerFactory, environment);
                     break;
                 default:
                     throw new NotImplementedException($"Not implemented Grpc Api for Id: {endpoint.Key}");

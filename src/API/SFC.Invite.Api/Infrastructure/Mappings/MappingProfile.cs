@@ -10,6 +10,14 @@ using SFC.Invite.Application.Features.Common.Dto.Common;
 using SFC.Invite.Application.Features.Common.Dto.Pagination;
 using SFC.Invite.Application.Features.Invite.Data.Queries.Common.Dto;
 using SFC.Invite.Application.Features.Invite.Data.Queries.GetAll;
+using SFC.Invite.Application.Features.Invite.Game.Player.Common.Dto;
+using SFC.Invite.Application.Features.Invite.Game.Player.Queries.Find;
+using SFC.Invite.Application.Features.Invite.Game.Player.Queries.Find.Dto.Filters;
+using SFC.Invite.Application.Features.Invite.Game.Player.Queries.Get;
+using SFC.Invite.Application.Features.Invite.Game.Team.Common.Dto;
+using SFC.Invite.Application.Features.Invite.Game.Team.Queries.Find;
+using SFC.Invite.Application.Features.Invite.Game.Team.Queries.Find.Dto.Filters;
+using SFC.Invite.Application.Features.Invite.Game.Team.Queries.Get;
 using SFC.Invite.Application.Features.Invite.Team.Player.Common.Dto;
 using SFC.Invite.Application.Features.Invite.Team.Player.Queries.Find;
 using SFC.Invite.Application.Features.Invite.Team.Player.Queries.Find.Dto.Filters;
@@ -66,6 +74,7 @@ public class MappingProfile : BaseMappingProfile
 
     private void CreateMapInviteContracts()
     {
+        // team player invite
         // get invite
         CreateMap<TeamPlayerInviteDto, SFC.Invite.Contracts.Models.Invite.Team.Player.TeamPlayerInvite>();
         CreateMap<GetTeamPlayerInviteViewModel, SFC.Invite.Contracts.Messages.Invite.Team.Player.Get.GetTeamPlayerInviteResponse>();
@@ -86,5 +95,37 @@ public class MappingProfile : BaseMappingProfile
         // (headers)
         CreateMap<PageMetadataDto, SFC.Invite.Contracts.Headers.PaginationHeader>()
             .IgnoreAllNonExisting();
+
+        // game player invite
+        // get invite
+        CreateMap<GamePlayerInviteDto, SFC.Invite.Contracts.Models.Invite.Game.Player.GamePlayerInvite>();
+        CreateMap<GetGamePlayerInviteViewModel, SFC.Invite.Contracts.Messages.Invite.Game.Player.Get.GetGamePlayerInviteResponse>();
+        CreateMap<SFC.Invite.Contracts.Messages.Invite.Game.Player.Get.GetGamePlayerInviteRequest, GetGamePlayerInviteQuery>();
+        CreateMap<GamePlayerInviteDto, SFC.Invite.Contracts.Headers.AuditableHeader>()
+            .IgnoreAllNonExisting();
+
+        //  game player invites
+        // (filters)
+        CreateMap<SFC.Invite.Contracts.Messages.Invite.Game.Player.Find.GetGamePlayerInvitesRequest, GetGamePlayerInvitesQuery>();
+        CreateMap<SFC.Invite.Contracts.Messages.Invite.Game.Player.Find.Filters.GetGamePlayerInvitesFilter, GetGamePlayerInvitesFilterDto>();
+        // (result)
+        CreateMap<GetGamePlayerInvitesViewModel, SFC.Invite.Contracts.Messages.Invite.Game.Player.Find.GetGamePlayerInvitesResponse>();
+        CreateMap<GamePlayerInviteDto, SFC.Invite.Contracts.Models.Invite.Game.Player.GamePlayerInvite>();
+
+        // game team invite
+        // get invite
+        CreateMap<GameTeamInviteDto, SFC.Invite.Contracts.Models.Invite.Game.Team.GameTeamInvite>();
+        CreateMap<GetGameTeamInviteViewModel, SFC.Invite.Contracts.Messages.Invite.Game.Team.Get.GetGameTeamInviteResponse>();
+        CreateMap<SFC.Invite.Contracts.Messages.Invite.Game.Team.Get.GetGameTeamInviteRequest, GetGameTeamInviteQuery>();
+        CreateMap<GameTeamInviteDto, SFC.Invite.Contracts.Headers.AuditableHeader>()
+            .IgnoreAllNonExisting();
+
+        //  game team invites
+        // (filters)
+        CreateMap<SFC.Invite.Contracts.Messages.Invite.Game.Team.Find.GetGameTeamInvitesRequest, GetGameTeamInvitesQuery>();
+        CreateMap<SFC.Invite.Contracts.Messages.Invite.Game.Team.Find.Filters.GetGameTeamInvitesFilter, GetGameTeamInvitesFilterDto>();
+        // (result)
+        CreateMap<GetGameTeamInvitesViewModel, SFC.Invite.Contracts.Messages.Invite.Game.Team.Find.GetGameTeamInvitesResponse>();
+        CreateMap<GameTeamInviteDto, SFC.Invite.Contracts.Models.Invite.Game.Team.GameTeamInvite>();
     }
 }

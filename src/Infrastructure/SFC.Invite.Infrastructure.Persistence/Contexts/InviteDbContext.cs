@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using SFC.Invite.Application.Interfaces.Common;
 using SFC.Invite.Application.Interfaces.Persistence.Context;
 using SFC.Invite.Domain.Entities.Invite.Data;
+using SFC.Invite.Domain.Entities.Invite.Game.Player;
+using SFC.Invite.Domain.Entities.Invite.Game.Team;
 using SFC.Invite.Domain.Entities.Invite.Team.Player;
 using SFC.Invite.Infrastructure.Persistence.Constants;
 using SFC.Invite.Infrastructure.Persistence.Interceptors;
@@ -33,6 +35,10 @@ public class InviteDbContext(
     #region General
 
     public IQueryable<TeamPlayerInvite> TeamPlayerInvites => Set<TeamPlayerInvite>();
+
+    public IQueryable<GamePlayerInvite> GamePlayerInvites => Set<GamePlayerInvite>();
+
+    public IQueryable<GameTeamInvite> GameTeamInvites => Set<GameTeamInvite>();
 
     #endregion General
 

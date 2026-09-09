@@ -4,6 +4,267 @@
         <name>SFC.Invite.Api</name>
     </assembly>
     <members>
+        <member name="T:SFC.Invite.Api.Controllers.GamePlayerInviteController">
+            <summary>
+            Game player invite controller:
+            - create invite
+            - cancel/accept/refuse invite
+            - get/find invites
+            </summary>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GamePlayerInviteController.GamePlayerInviteExistAsync(System.Int64,System.Int64,System.Nullable{System.Int32})">
+            <summary>
+            Check if Game player invite exist.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="status">Game player status Id.</param>
+            <returns>An ActionResult of type GamePlayerInviteExistResponse</returns>
+            <response code="200">Returns Game player invite existence check result.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GamePlayerInviteController.CreateGamePlayerInviteAsync(System.Int64,System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Create.CreateGamePlayerInviteRequest)">
+            <summary>
+            Create new Game invite for player.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="request">Create Game invite for player request.</param>
+            <returns>An ActionResult of type CreateGamePlayerInviteResponse</returns>
+            <response code="201">Returns **new** created Game player invite.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GamePlayerInviteController.CreatesGamePlayerInviteAsync(System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Creates.CreatesGamePlayerInviteRequest)">
+            <summary>
+            Create new Game invites for players.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="request">Create Game invites for players request.</param>
+            <returns>An ActionResult of type CreateGamePlayerInvitesResponse</returns>
+            <response code="200">Returns **new** created Game player invites.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GamePlayerInviteController.CancelGamePlayerInviteAsync(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Cancel Game invite for player by Game.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="inviteId">Game player invite Id.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** canceled.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GamePlayerInviteController.RefuseGamePlayerInviteAsync(System.Int64,System.Int64,System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Update.Refuse.RefuseGamePlayerInviteRequest)">
+            <summary>
+            Refuse Game invite for player by player.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="inviteId">Game player invite Id.</param>
+            <param name="request">Refuse Game invite for player request.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** refused.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GamePlayerInviteController.AcceptGamePlayerInviteAsync(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Accept Game invite for player by player.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="inviteId">Game player invite Id.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** accepted.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GamePlayerInviteController.GetGamePlayerInviteAsync(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Return Game invite for player.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="playerId">Player Id.</param>
+            <param name="inviteId">Game player invite Id.</param>
+            <returns>An ActionResult of type GetGamePlayerInviteResponse</returns>
+            <response code="200">Returns Game invite for player model.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="404">Returns when invite **not found**.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GamePlayerInviteController.GetGamePlayerInvitesAsync(System.Int64)">
+            <summary>
+            Return Game player invite models by Game Id.
+            </summary>
+            <param name="gameId">Game unique identifier.</param>
+            <returns>An ActionResult of type GetAllGamePlayerInvitesResponse</returns>
+            <response code="200">Returns Game player invite models.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GamePlayerInviteController.GetGamePlayerInvitesAsync(System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Find.GetGamePlayerInvitesRequest)">
+            <summary>
+            Return list of Game player invites.
+            </summary>
+            <param name="gameId">Game unique identifier.</param>
+            <param name="request">Get Game player invites request.</param>
+            <returns>An ActionResult of type GetGamePlayerInvitesResponse</returns>
+            <response code="200">Returns list of Game player invites with pagination header.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+        </member>
+        <member name="T:SFC.Invite.Api.Controllers.GameTeamInviteController">
+            <summary>
+            Game Team invite controller:
+            - create invite
+            - cancel/accept/refuse invite
+            - get/find invites
+            </summary>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.GameTeamInviteExistAsync(System.Int64,System.Int64,System.Nullable{System.Int32})">
+            <summary>
+            Check if Game Team invite exist.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="teamId">Team Id.</param>
+            <param name="status">Game Team status Id.</param>
+            <returns>An ActionResult of type GameTeamInviteExistResponse</returns>
+            <response code="200">Returns Game Team invite existence check result.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.CreateGameTeamInviteAsync(System.Int64,System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Create.CreateGameTeamInviteRequest)">
+            <summary>
+            Create new Game invite for Team.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="teamId">Team Id.</param>
+            <param name="request">Create Game invite for Team request.</param>
+            <returns>An ActionResult of type CreateGameTeamInviteResponse</returns>
+            <response code="201">Returns **new** created Game Team invite.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.CreatesGameTeamInviteAsync(System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Creates.CreatesGameTeamInviteRequest)">
+            <summary>
+            Create new Game invites for Teams.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="request">Create Game invites for Teams request.</param>
+            <returns>An ActionResult of type CreateGameTeamInvitesResponse</returns>
+            <response code="200">Returns **new** created Game Team invites.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.UpdateGameTeamInviteAsync(System.Int64,System.Int64,System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.General.UpdateGameTeamInviteRequest)">
+            <summary>
+            Update Game invite for Team by Game.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="teamId">Team Id.</param>
+            <param name="inviteId">Game Team invite Id.</param>
+            <param name="request">Update Game invite for Team request.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** updated.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.CancelGameTeamInviteAsync(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Cancel Game invite for Team by Game.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="teamId">Team Id.</param>
+            <param name="inviteId">Game Team invite Id.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** canceled.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.RefuseGameTeamInviteAsync(System.Int64,System.Int64,System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.Refuse.RefuseGameTeamInviteRequest)">
+            <summary>
+            Refuse Game invite for Team by Team.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="teamId">Team Id.</param>
+            <param name="inviteId">Game Team invite Id.</param>
+            <param name="request">Refuse Game invite for Team request.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** refused.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.AcceptGameTeamInviteAsync(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Accept Game invite for Team by Team.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="teamId">Team Id.</param>
+            <param name="inviteId">Game Team invite Id.</param>
+            <returns>No content</returns>
+            <response code="204">Returns no content if invite **successfully** accepted.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="403">Returns when **failed** authorization.</response>
+            <response code="404">Returns when invite **not found**.</response>
+            <response code="409">Returns when **flow validation** errors.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.GetGameTeamInviteAsync(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Return Game invite for Team.
+            </summary>
+            <param name="gameId">Game Id.</param>
+            <param name="teamId">Team Id.</param>
+            <param name="inviteId">Game Team invite Id.</param>
+            <returns>An ActionResult of type GetGameTeamInviteResponse</returns>
+            <response code="200">Returns Game invite for Team model.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+            <response code="404">Returns when invite **not found**.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.GetsGameTeamInviteAsync(System.Int64)">
+            <summary>
+            Return Game Team invite models by Game Id.
+            </summary>
+            <param name="gameId">Game unique identifier.</param>
+            <returns>An ActionResult of type GetAllGameTeamInvitesResponse</returns>
+            <response code="200">Returns Game Team invite models.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+        </member>
+        <member name="M:SFC.Invite.Api.Controllers.GameTeamInviteController.GetGameTeamInvitesAsync(System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Find.GetGameTeamInvitesRequest)">
+            <summary>
+            Return list of Game Team invites.
+            </summary>
+            <param name="gameId">Game unique identifier.</param>
+            <param name="request">Get Game Team invites request.</param>
+            <returns>An ActionResult of type GetGameTeamInvitesResponse</returns>
+            <response code="200">Returns list of Game Team invites with pagination header.</response>
+            <response code="400">Returns **validation** errors.</response>
+            <response code="401">Returns when **failed** authentication.</response>
+        </member>
         <member name="M:SFC.Invite.Api.Controllers.InviteDataController.GetAllAsync">
             <summary>
             Return all available data types.
@@ -47,7 +308,7 @@
             <response code="403">Returns when **failed** authorization.</response>
             <response code="409">Returns when **flow validation** errors.</response>
         </member>
-        <member name="M:SFC.Invite.Api.Controllers.TeamPlayerInvitesController.CreateTeamPlayerInvitesAsync(System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.CreateRange.CreateTeamPlayerInvitesRequest)">
+        <member name="M:SFC.Invite.Api.Controllers.TeamPlayerInvitesController.CreatesTeamPlayerInviteAsync(System.Int64,SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.CreateRange.CreateTeamPlayerInvitesRequest)">
             <summary>
             Create new team invites for players.
             </summary>
@@ -224,6 +485,141 @@
             Sorting **direction** (ascending or descending).
             </summary>
         </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Game.General.GameAvailabilityModel">
+            <summary>
+            Game's **availability** model (when game is available to play).
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameAvailabilityModel.Date">
+            <summary>
+            Date.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Game.General.GameFinancialProfileModel">
+            <summary>
+            Game's **financial** profile model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameFinancialProfileModel.FreeGame">
+            <summary>
+            Game play only on free field and without any extra expansions.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameFinancialProfileModel.PayAmount">
+            <summary>
+            How many need to pay for game.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Game.General.GameGeneralProfileModel">
+            <summary>
+            Game's **general** profile model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameGeneralProfileModel.Name">
+            <summary>
+            Name.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameGeneralProfileModel.Description">
+            <summary>
+            A few words about game.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameGeneralProfileModel.Location">
+            <summary>
+            Location of main game field.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameGeneralProfileModel.Availability">
+            <summary>
+            Game's **availability** to play.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameGeneralProfileModel.Tags">
+            <summary>
+            Game's **tags**.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Game.General.GameInventaryProfileModel">
+            <summary>
+            Game's **inventary** profile model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameInventaryProfileModel.ShirtsRequired">
+            <summary>
+            Is it required to have shirts for play.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameInventaryProfileModel.ShirtsCount">
+            <summary>
+            How many shirts required for game.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Game.General.GameModel">
+            <summary>
+            Game model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameModel.Id">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameModel.Status">
+            <summary>
+            Game status.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameModel.Profile">
+            <summary>
+            Game's profile model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameModel.GamePlayers">
+            <summary>
+            Game's players model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Game.General.GameProfileModel">
+            <summary>
+            Game **profile** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameProfileModel.General">
+            <summary>
+            General profile.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameProfileModel.Financial">
+            <summary>
+            Financial profile.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.General.GameProfileModel.Inventary">
+            <summary>
+            Inventary profile.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Game.Player.GamePlayerModel">
+            <summary>
+            Game Player model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.Player.GamePlayerModel.Id">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.Player.GamePlayerModel.Status">
+            <summary>
+            Game Player status.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Game.Player.GamePlayerModel.Player">
+            <summary>
+            Game Player related to this player.
+            </summary>
+        </member>
         <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Data.Common.DataValueModel">
             <summary>
             Data value.
@@ -247,6 +643,416 @@
         <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Data.GetAll.GetAllInviteDataResponse.InviteStatuses">
             <summary>
             Invite statuses.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Common.GamePlayerInviteModel">
+            <summary>
+            Game player invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Common.GamePlayerInviteModel.Id">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Common.GamePlayerInviteModel.Player">
+            <summary>
+            Game invite related to this player.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Common.GamePlayerInviteModel.Game">
+            <summary>
+            Game invite related to this Game.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Common.GamePlayerInviteModel.Status">
+            <summary>
+            Game player invite status.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Common.GamePlayerInviteModel.GameComment">
+            <summary>
+            Comment from Game to player for invitation.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Common.GamePlayerInviteModel.PlayerComment">
+            <summary>
+            Comment from player to Game if he/she refuse invite.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Create.CreateGamePlayerInviteModel">
+            <summary>
+            **Create** Game player invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Create.CreateGamePlayerInviteModel.Comment">
+            <summary>
+            Comment from Game to player for invitation.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Create.CreateGamePlayerInviteRequest">
+            <summary>
+            **Create** Game player invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Create.CreateGamePlayerInviteRequest.Invite">
+            <summary>
+            Game player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Create.CreateGamePlayerInviteResponse">
+            <summary>
+            **Create** Game player invite response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Create.CreateGamePlayerInviteResponse.Invite">
+            <summary>
+            Game player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Creates.CreatesGamePlayerInviteModel">
+            <summary>
+            **Creates** Game player invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Creates.CreatesGamePlayerInviteModel.Player">
+            <summary>
+            Player for which Game send invite.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Creates.CreatesGamePlayerInviteModel.Comment">
+            <summary>
+            Comment from Game to player for invitation.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Creates.CreatesGamePlayerInviteRequest">
+            <summary>
+            **Creates** Game player invites request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Creates.CreatesGamePlayerInviteRequest.Invites">
+            <summary>
+            Game player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Creates.CreatesGamePlayerInviteResponse">
+            <summary>
+            **Create** Game player invite response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Creates.CreatesGamePlayerInviteResponse.Invites">
+            <summary>
+            Game player invite models.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Exist.GamePlayerInviteExistResponse">
+            <summary>
+            Described the result of check if Game player invite **exist**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Exist.GamePlayerInviteExistResponse.Exist">
+            <summary>
+            Determined if Game player invite exist.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Find.Filters.GetGamePlayerInvitesFilterModel">
+            <summary>
+            Get Game player invites filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Find.Filters.GetGamePlayerInvitesFilterModel.Invite">
+            <summary>
+            Invite filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Find.Filters.GetGamePlayerInvitesFilterModel.Player">
+            <summary>
+            Player filter model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Find.Filters.GetGamePlayerInvitesInviteFilterModel">
+            <summary>
+            Get Game player invites for invite filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Find.Filters.GetGamePlayerInvitesInviteFilterModel.Statuses">
+            <summary>
+            Statuses of invite.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Find.GetGamePlayerInvitesRequest">
+            <summary>
+            **Get** Game player invites request.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Find.GetGamePlayerInvitesResponse">
+            <summary>
+            **Get** Game player invites response.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Get.GetGamePlayerInviteResponse">
+            <summary>
+            **Get** Game player invite response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Get.GetGamePlayerInviteResponse.Invite">
+            <summary>
+            Game player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Gets.GetsGamePlayerInviteResponse">
+            <summary>
+            **Get** all Game player invites response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Gets.GetsGamePlayerInviteResponse.Invites">
+            <summary>
+            Game player invite models.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Update.General.UpdateGamePlayerInviteModel">
+            <summary>
+            **Update** Game player invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Update.General.UpdateGamePlayerInviteModel.Comment">
+            <summary>
+            Comment from Game to player for invitation.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Update.General.UpdateGamePlayerInviteRequest">
+            <summary>
+            **Update** Game player invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Update.General.UpdateGamePlayerInviteRequest.Invite">
+            <summary>
+            Update Game player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Update.Refuse.RefuseGamePlayerInviteModel">
+            <summary>
+            **Refuse** Game player invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Update.Refuse.RefuseGamePlayerInviteModel.Comment">
+            <summary>
+            Comment from player to explain why he/she is refuse Game invite.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Update.Refuse.RefuseGamePlayerInviteRequest">
+            <summary>
+            **Refuse** Game player invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Player.Update.Refuse.RefuseGamePlayerInviteRequest.Invite">
+            <summary>
+            Refuse Game player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Common.GameTeamInviteModel">
+            <summary>
+            Game Team invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Common.GameTeamInviteModel.Id">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Common.GameTeamInviteModel.Team">
+            <summary>
+            Game invite related to this Team.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Common.GameTeamInviteModel.Game">
+            <summary>
+            Game invite related to this Game.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Common.GameTeamInviteModel.Status">
+            <summary>
+            Game Team invite status.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Common.GameTeamInviteModel.GameComment">
+            <summary>
+            Comment from Game to Team for invitation.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Common.GameTeamInviteModel.TeamComment">
+            <summary>
+            Comment from Team to Game if he/she refuse invite.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Create.CreateGameTeamInviteModel">
+            <summary>
+            **Create** Game Team invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Create.CreateGameTeamInviteModel.Comment">
+            <summary>
+            Comment from Game to Team for invitation.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Create.CreateGameTeamInviteRequest">
+            <summary>
+            **Create** Game Team invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Create.CreateGameTeamInviteRequest.Invite">
+            <summary>
+            Game Team invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Create.CreateGameTeamInviteResponse">
+            <summary>
+            **Create** Game Team invite response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Create.CreateGameTeamInviteResponse.Invite">
+            <summary>
+            Game Team invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Creates.CreatesGameTeamInviteModel">
+            <summary>
+            **Creates** Game Team invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Creates.CreatesGameTeamInviteModel.Team">
+            <summary>
+            Team for which Game send invite.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Creates.CreatesGameTeamInviteModel.Comment">
+            <summary>
+            Comment from Game to Team for invitation.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Creates.CreatesGameTeamInviteRequest">
+            <summary>
+            **Creates** Game Team invites request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Creates.CreatesGameTeamInviteRequest.Invites">
+            <summary>
+            Game Team invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Creates.CreatesGameTeamInviteResponse">
+            <summary>
+            **Create** Game Team invite response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Creates.CreatesGameTeamInviteResponse.Invites">
+            <summary>
+            Game Team invite models.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Exist.GameTeamInviteExistResponse">
+            <summary>
+            Described the result of check if Game Team invite **exist**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Exist.GameTeamInviteExistResponse.Exist">
+            <summary>
+            Determined if Game Team invite exist.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Find.Filters.GetGameTeamInvitesFilterModel">
+            <summary>
+            Get Game Team invites filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Find.Filters.GetGameTeamInvitesFilterModel.Invite">
+            <summary>
+            Invite filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Find.Filters.GetGameTeamInvitesFilterModel.Team">
+            <summary>
+            Team filter model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Find.Filters.GetGameTeamInvitesInviteFilterModel">
+            <summary>
+            Get Game Team invites for invite filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Find.Filters.GetGameTeamInvitesInviteFilterModel.Statuses">
+            <summary>
+            Statuses of invite.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Find.GetGameTeamInvitesRequest">
+            <summary>
+            **Get** Game Team invites request.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Find.GetGameTeamInvitesResponse">
+            <summary>
+            **Get** Game Team invites response.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Get.GetGameTeamInviteResponse">
+            <summary>
+            **Get** Game Team invite response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Get.GetGameTeamInviteResponse.Invite">
+            <summary>
+            Game Team invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Gets.GetsGameTeamInviteResponse">
+            <summary>
+            **Get** all Game Team invites response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Gets.GetsGameTeamInviteResponse.Invites">
+            <summary>
+            Game Team invite models.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.General.UpdateGameTeamInviteModel">
+            <summary>
+            **Update** Game Team invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.General.UpdateGameTeamInviteModel.Comment">
+            <summary>
+            Comment from Game to Team for invitation.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.General.UpdateGameTeamInviteRequest">
+            <summary>
+            **Update** Game Team invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.General.UpdateGameTeamInviteRequest.Invite">
+            <summary>
+            Update Game Team invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.Refuse.RefuseGameTeamInviteModel">
+            <summary>
+            **Refuse** Game Team invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.Refuse.RefuseGameTeamInviteModel.Comment">
+            <summary>
+            Comment from Team to explain why he/she is refuse Game invite.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.Refuse.RefuseGameTeamInviteRequest">
+            <summary>
+            **Refuse** Game Team invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Game.Team.Update.Refuse.RefuseGameTeamInviteRequest.Invite">
+            <summary>
+            Refuse Game Team invite model.
             </summary>
         </member>
         <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Common.TeamPlayerInviteModel">
@@ -284,6 +1090,36 @@
             Comment from player to team if he/she refuse invite.
             </summary>
         </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteModel">
+            <summary>
+            **Create** team player invite model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteModel.Comment">
+            <summary>
+            Comment from team to player for invitation.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteRequest">
+            <summary>
+            **Create** team player invite request.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteRequest.Invite">
+            <summary>
+            Team player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteResponse">
+            <summary>
+            **Create** team player invite response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteResponse.Invite">
+            <summary>
+            Team player invite model.
+            </summary>
+        </member>
         <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.CreateRange.CreateTeamPlayerInvitesModel">
             <summary>
             **Create** team player invites model.
@@ -317,36 +1153,6 @@
         <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.CreateRange.CreateTeamPlayerInvitesResponse.Invites">
             <summary>
             Team player invite models.
-            </summary>
-        </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteModel">
-            <summary>
-            **Create** team player invite model.
-            </summary>
-        </member>
-        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteModel.Comment">
-            <summary>
-            Comment from team to player for invitation.
-            </summary>
-        </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteRequest">
-            <summary>
-            **Create** team player invite request.
-            </summary>
-        </member>
-        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteRequest.Invite">
-            <summary>
-            Team player invite model.
-            </summary>
-        </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteResponse">
-            <summary>
-            **Create** team player invite response.
-            </summary>
-        </member>
-        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Create.CreateTeamPlayerInviteResponse.Invite">
-            <summary>
-            Team player invite model.
             </summary>
         </member>
         <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Exist.TeamPlayerInviteExistResponse">
@@ -394,16 +1200,6 @@
             **Get** team player invites response.
             </summary>
         </member>
-        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.GetAll.GetAllTeamPlayerInvitesResponse">
-            <summary>
-            **Get** all team player invites response.
-            </summary>
-        </member>
-        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.GetAll.GetAllTeamPlayerInvitesResponse.Invites">
-            <summary>
-            Team player invite models.
-            </summary>
-        </member>
         <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Get.GetTeamPlayerInviteResponse">
             <summary>
             **Get** team player invite response.
@@ -412,6 +1208,16 @@
         <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Get.GetTeamPlayerInviteResponse.Invite">
             <summary>
             Team player invite model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.GetAll.GetAllTeamPlayerInvitesResponse">
+            <summary>
+            **Get** all team player invites response.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.GetAll.GetAllTeamPlayerInvitesResponse.Invites">
+            <summary>
+            Team player invite models.
             </summary>
         </member>
         <member name="T:SFC.Invite.Api.Infrastructure.Models.Invite.Team.Player.Update.General.UpdateTeamPlayerInviteModel">
@@ -847,6 +1653,106 @@
         <member name="P:SFC.Invite.Api.Infrastructure.Models.Player.PlayerStatValueModel.Value">
             <summary>
             Stat value.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamAvailabilityLimitModel">
+            <summary>
+            Team **availability filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamAvailabilityLimitModel.Days">
+            <summary>
+            Days of week.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamFilterModel">
+            <summary>
+            Team filter model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamFilterModel.Statuses">
+            <summary>
+            Statuses of team.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamFilterModel.Profile">
+            <summary>
+            Profile filter model.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamFinancialProfileFilterModel">
+            <summary>
+            Team **financial profile filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamFinancialProfileFilterModel.FreePlay">
+            <summary>
+            Describe if team can **pay** for football matches and other stuff.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamGeneralProfileFilterModel">
+            <summary>
+            Team **general profile filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamGeneralProfileFilterModel.Name">
+            <summary>
+            Name of team.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamGeneralProfileFilterModel.City">
+            <summary>
+            **City** where team will play football.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamGeneralProfileFilterModel.Tags">
+            <summary>
+            Team's **tags**.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamGeneralProfileFilterModel.Availability">
+            <summary>
+            Team's **availability** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamGeneralProfileFilterModel.Location">
+            <summary>
+            **Location** where team mostly will play football.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamGeneralProfileFilterModel.HasLogo">
+            <summary>
+            Describe if team must have uploaded logo.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamInventaryProfileFilterModel">
+            <summary>
+            Team **inventary profile filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamInventaryProfileFilterModel.Shirts">
+            <summary>
+            Team's **shirts**.
+            </summary>
+        </member>
+        <member name="T:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamProfileFilterModel">
+            <summary>
+            Team **profile filter** model.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamProfileFilterModel.General">
+            <summary>
+            General profile.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamProfileFilterModel.Financial">
+            <summary>
+            Financial profile.
+            </summary>
+        </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Team.General.Filters.TeamProfileFilterModel.Inventary">
+            <summary>
+            Inventary profile.
             </summary>
         </member>
         <member name="T:SFC.Invite.Api.Infrastructure.Models.Team.General.TeamAvailabilityModel">

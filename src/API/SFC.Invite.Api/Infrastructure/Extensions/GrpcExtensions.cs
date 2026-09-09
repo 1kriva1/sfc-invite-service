@@ -8,6 +8,8 @@ public static class GrpcExtensions
     {
         app.MapGrpcService<InviteDataService>();
         app.MapGrpcService<TeamPlayerInviteService>();
+        app.MapGrpcService<GamePlayerInviteService>();
+        app.MapGrpcService<GameTeamInviteService>();
 
         return app;
     }

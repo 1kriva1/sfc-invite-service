@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>SFC.Invite.Contracts</PackageId>
-    <Version>0.0.1</Version>
+    <Version>0.0.3</Version>
     <Authors>Andrii Kryvoruk</Authors>
     <Company>SFC</Company>
     <Product>SFC</Product>
@@ -12,25 +12,6 @@
     </Description>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Enums\sorting_direction.proto" />
-    <None Remove="Headers\auditable_header.proto" />
-    <None Remove="Headers\pagination_header.proto" />
-    <None Remove="Messages\Invite\Data\GetAll\get_all_invite_data_request.proto" />
-    <None Remove="Messages\Invite\Data\GetAll\get_all_invite_data_response.proto" />
-    <None Remove="Messages\Invite\Team\Player\Find\Filters\get_team_player_invites_filter.proto" />
-    <None Remove="Messages\Invite\Team\Player\Find\get_team_player_invites_request.proto" />
-    <None Remove="Messages\Invite\Team\Player\Find\get_team_player_invites_response.proto" />
-    <None Remove="Messages\Invite\Team\Player\Get\get_team_player_invite_request.proto" />
-    <None Remove="Messages\Invite\Team\Player\Get\get_team_player_invite_response.proto" />
-    <None Remove="Models\Common\pagination.proto" />
-    <None Remove="Models\Common\range_limit.proto" />
-    <None Remove="Models\Common\sorting.proto" />
-    <None Remove="Models\Invite\Data\data_value.proto" />
-    <None Remove="Services\invite_data_service.proto" />
-    <None Remove="Services\team_player_invite_service.proto" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.29.3" />
@@ -47,6 +28,16 @@
     <Protobuf Include="Headers\pagination_header.proto" />
     <Protobuf Include="Messages\Invite\Data\GetAll\get_all_invite_data_request.proto" />
     <Protobuf Include="Messages\Invite\Data\GetAll\get_all_invite_data_response.proto" />
+    <Protobuf Include="Messages\Invite\Game\Team\Find\Filters\get_game_team_invites_filter.proto" />
+    <Protobuf Include="Messages\Invite\Game\Team\Find\get_game_team_invites_request.proto" />
+    <Protobuf Include="Messages\Invite\Game\Team\Find\get_game_team_invites_response.proto" />
+    <Protobuf Include="Messages\Invite\Game\Team\Get\get_game_team_invite_request.proto" />
+    <Protobuf Include="Messages\Invite\Game\Team\Get\get_game_team_invite_response.proto" />
+    <Protobuf Include="Messages\Invite\Game\Player\Find\Filters\get_game_player_invites_filter.proto" />
+    <Protobuf Include="Messages\Invite\Game\Player\Find\get_game_player_invites_request.proto" />
+    <Protobuf Include="Messages\Invite\Game\Player\Find\get_game_player_invites_response.proto" />
+    <Protobuf Include="Messages\Invite\Game\Player\Get\get_game_player_invite_request.proto" />
+    <Protobuf Include="Messages\Invite\Game\Player\Get\get_game_player_invite_response.proto" />
     <Protobuf Include="Messages\Invite\Team\Player\Find\Filters\get_team_player_invites_filter.proto" />
     <Protobuf Include="Messages\Invite\Team\Player\Find\get_team_player_invites_request.proto" />
     <Protobuf Include="Messages\Invite\Team\Player\Find\get_team_player_invites_response.proto" />
@@ -56,8 +47,12 @@
     <Protobuf Include="Models\Common\range_limit.proto" />
     <Protobuf Include="Models\Common\sorting.proto" />
     <Protobuf Include="Models\Invite\Data\data_value.proto" />
+    <Protobuf Include="Models\Invite\Game\Team\game_team_invite.proto" />
+    <Protobuf Include="Models\Invite\Game\Player\game_player_invite.proto" />
     <Protobuf Include="Models\Invite\Team\Player\team_player_invite.proto" />
+    <Protobuf Include="Services\game_team_invite_service.proto" />
     <Protobuf Include="Services\invite_data_service.proto" />
+    <Protobuf Include="Services\game_player_invite_service.proto" />
     <Protobuf Include="Services\team_player_invite_service.proto" />
   </ItemGroup>
 

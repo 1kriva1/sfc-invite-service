@@ -22,6 +22,19 @@ public enum RequestId
     CreateTeamPlayer,
     UpdateTeamPlayer,
     CreateTeamPlayers,
+    // game
+    ResetGameData,
+    CreateGame,
+    UpdateGame,
+    CreateGames,
+    // game player
+    CreateGamePlayer,
+    UpdateGamePlayer,
+    CreateGamePlayers,
+    // game team
+    CreateGameTeam,
+    UpdateGameTeam,
+    CreateGameTeams,
     // core
     TeamPlayerInviteExist,
     GetAllInviteData,
@@ -31,4 +44,20 @@ public enum RequestId
     GetTeamPlayerInvite,
     GetAllTeamPlayerInvites,
     GetTeamPlayerInvites,
+    // invite game player
+    CreateGamePlayerInvite,
+    CreateGamePlayerInvites,
+    UpdateGamePlayerInvite,
+    ExistGamePlayerInvite,
+    GetGamePlayerInvite,
+    GetsGamePlayerInvite,
+    GetGamePlayerInvites,
+    // invite game team
+    CreateGameTeamInvite,
+    CreateGameTeamInvites,
+    UpdateGameTeamInvite,
+    ExistGameTeamInvite,
+    GetGameTeamInvite,
+    GetsGameTeamInvite,
+    GetGameTeamInvites,
 }

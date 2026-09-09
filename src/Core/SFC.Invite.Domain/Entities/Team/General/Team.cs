@@ -1,5 +1,7 @@
 ﻿using SFC.Invite.Domain.Common;
 using SFC.Invite.Domain.Common.Interfaces;
+using SFC.Invite.Domain.Entities.Invite.Game.Player;
+using SFC.Invite.Domain.Entities.Invite.Game.Team;
 using SFC.Invite.Domain.Entities.Invite.Team.Player;
 using SFC.Invite.Domain.Entities.Team.Player;
 
@@ -25,4 +27,6 @@ public class Team : BaseAuditableReferenceEntity<long>, IUserEntity
     public ICollection<TeamPlayer> Players { get; } = [];
 
     public ICollection<TeamPlayerInvite> PlayerInvites { get; } = [];
+
+    public ICollection<GameTeamInvite> GameInvites { get; } = [];
 }

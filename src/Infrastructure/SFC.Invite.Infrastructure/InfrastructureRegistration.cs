@@ -6,23 +6,34 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 using SFC.Invite.Application.Interfaces.Common;
+using SFC.Invite.Application.Interfaces.Game.General;
+using SFC.Invite.Application.Interfaces.Game.Player;
+using SFC.Invite.Application.Interfaces.Game.Team;
 using SFC.Invite.Application.Interfaces.Identity;
 using SFC.Invite.Application.Interfaces.Invite.Data;
+using SFC.Invite.Application.Interfaces.Invite.Game.Player;
+using SFC.Invite.Application.Interfaces.Invite.Game.Team;
 using SFC.Invite.Application.Interfaces.Invite.Team.Player;
 using SFC.Invite.Application.Interfaces.Metadata;
 using SFC.Invite.Application.Interfaces.Player;
 using SFC.Invite.Application.Interfaces.Reference;
 using SFC.Invite.Application.Interfaces.Team.General;
 using SFC.Invite.Application.Interfaces.Team.Player;
+using SFC.Invite.Infrastructure.Authorization.OwnGame;
 using SFC.Invite.Infrastructure.Authorization.OwnInvite;
 using SFC.Invite.Infrastructure.Authorization.OwnPlayer;
 using SFC.Invite.Infrastructure.Authorization.OwnTeam;
 using SFC.Invite.Infrastructure.Extensions;
 using SFC.Invite.Infrastructure.Extensions.Grpc;
 using SFC.Invite.Infrastructure.Services.Common;
+using SFC.Invite.Infrastructure.Services.Game.General;
+using SFC.Invite.Infrastructure.Services.Game.Player;
+using SFC.Invite.Infrastructure.Services.Game.Team;
 using SFC.Invite.Infrastructure.Services.Hosted;
 using SFC.Invite.Infrastructure.Services.Identity;
 using SFC.Invite.Infrastructure.Services.Invite.Data;
+using SFC.Invite.Infrastructure.Services.Invite.Game.Player;
+using SFC.Invite.Infrastructure.Services.Invite.Game.Team;
 using SFC.Invite.Infrastructure.Services.Invite.Team.Player;
 using SFC.Invite.Infrastructure.Services.Metadata;
 using SFC.Invite.Infrastructure.Services.Player;
@@ -37,7 +48,7 @@ public static class InfrastructureRegistration
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        builder.Services.AddAutoMapper(config => { }, Assembly.GetExecutingAssembly());
 
         builder.Services.AddHangfire(builder.Configuration);
 
@@ -68,19 +79,28 @@ public static class InfrastructureRegistration
         builder.Services.AddTransient<IPlayerSeedService, PlayerSeedService>();
         builder.Services.AddTransient<ITeamSeedService, TeamSeedService>();
         builder.Services.AddTransient<ITeamPlayerSeedService, TeamPlayerSeedService>();
+        builder.Services.AddTransient<IGameSeedService, GameSeedService>();
+        builder.Services.AddTransient<IGamePlayerSeedService, GamePlayerSeedService>();
+        builder.Services.AddTransient<IGameTeamSeedService, GameTeamSeedService>();
         builder.Services.AddTransient<IInviteDataService, InviteDataService>();
         builder.Services.AddTransient<ITeamPlayerInviteService, TeamPlayerInviteService>();
         builder.Services.AddTransient<ITeamPlayerInviteSeedService, TeamPlayerInviteSeedService>();
+        builder.Services.AddTransient<IGamePlayerInviteService, GamePlayerInviteService>();
+        builder.Services.AddTransient<IGamePlayerInviteSeedService, GamePlayerInviteSeedService>();
+        builder.Services.AddTransient<IGameTeamInviteService, GameTeamInviteService>();
+        builder.Services.AddTransient<IGameTeamInviteSeedService, GameTeamInviteSeedService>();
 
         // grpc
         builder.Services.AddTransient<IIdentityService, IdentityService>();
         builder.Services.AddTransient<IPlayerService, PlayerService>();
         builder.Services.AddTransient<ITeamService, TeamService>();
+        builder.Services.AddTransient<IGameService, GameService>();
 
         // references
         builder.Services.AddScoped<IIdentityReference, IdentityReference>();
         builder.Services.AddScoped<IPlayerReference, PlayerReference>();
         builder.Services.AddScoped<ITeamReference, TeamReference>();
+        builder.Services.AddScoped<IGameReference, GameReference>();
 
         // hosted services
         builder.Services.AddHostedService<DatabaseResetHostedService>();
@@ -91,5 +111,6 @@ public static class InfrastructureRegistration
         builder.Services.AddScoped<IAuthorizationHandler, OwnInviteHandler>();
         builder.Services.AddScoped<IAuthorizationHandler, OwnPlayerHandler>();
         builder.Services.AddScoped<IAuthorizationHandler, OwnTeamHandler>();
+        builder.Services.AddScoped<IAuthorizationHandler, OwnGameHandler>();
     }
 }

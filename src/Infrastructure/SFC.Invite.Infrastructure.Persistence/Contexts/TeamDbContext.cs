@@ -42,8 +42,6 @@ public class TeamDbContext(
 
     public IQueryable<TeamPlayer> TeamPlayers => Set<TeamPlayer>();
 
-    public IQueryable<TeamPlayerInvite> TeamPlayerInvites => Set<TeamPlayerInvite>();
-
     #endregion General
 
     #region Data
@@ -66,6 +64,9 @@ public class TeamDbContext(
 
         // player
         PlayerDbContext.ApplyPlayerConfigurations(modelBuilder);
+
+        // game
+        GameDbContext.ApplyGameConfigurations(modelBuilder);
 
         // team
         ApplyTeamConfigurations(modelBuilder);

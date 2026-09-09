@@ -6,6 +6,7 @@ using SFC.Invite.Application.Features.Common.Models.Find.Paging;
 using SFC.Invite.Application.Features.Invite.Data.Queries.Common.Dto;
 using SFC.Invite.Domain.Common;
 using SFC.Invite.Domain.Entities.Data;
+using SFC.Invite.Domain.Entities.Game.General;
 using SFC.Invite.Domain.Entities.Identity.General;
 using SFC.Invite.Domain.Entities.Player.General;
 using SFC.Invite.Domain.Entities.Team.General;
@@ -49,6 +50,11 @@ public class MappingProfile : BaseMappingProfile
         CreateMap<string, TeamTag>()
             .ConvertUsing(tag => new TeamTag { Value = tag });
         CreateMap<TeamTag, string>()
+            .ConvertUsing(tag => tag.Value);
+
+        CreateMap<string, GameTag>()
+            .ConvertUsing(tag => new GameTag { Value = tag });
+        CreateMap<GameTag, string>()
             .ConvertUsing(tag => tag.Value);
 
         #endregion Simple types
