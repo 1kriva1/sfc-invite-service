@@ -4,8 +4,14 @@ using Microsoft.Extensions.DependencyInjection;
 using SFC.Invite.Application.Common.Settings;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Common;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Data;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Game.Data;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Game.General;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Game.Player;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Game.Team;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Identity;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Invite.Data;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Invite.Game.Player;
+using SFC.Invite.Application.Interfaces.Persistence.Repository.Invite.Game.Team;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Invite.Team.Player;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Metadata;
 using SFC.Invite.Application.Interfaces.Persistence.Repository.Player;
@@ -15,9 +21,16 @@ using SFC.Invite.Application.Interfaces.Persistence.Repository.Team.Player;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Common;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Data;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Data.Cache;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Game.Data;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Game.Data.Cache;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Game.General;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Game.Player;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Game.Team;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Identity;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Invite.Data;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Invite.Data.Cache;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Invite.Game.Player;
+using SFC.Invite.Infrastructure.Persistence.Repositories.Invite.Game.Team;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Invite.Team.Player;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Metadata;
 using SFC.Invite.Infrastructure.Persistence.Repositories.Player;
@@ -39,7 +52,12 @@ public static class RepositoryExtensions
         services.AddScoped<IPlayerRepository, PlayerRepository>();
         services.AddScoped<ITeamRepository, TeamRepository>();
         services.AddScoped<ITeamPlayerRepository, TeamPlayerRepository>();
+        services.AddScoped<IGameRepository, GameRepository>();
+        services.AddScoped<IGamePlayerRepository, GamePlayerRepository>();
+        services.AddScoped<IGameTeamRepository, GameTeamRepository>();
         services.AddScoped<ITeamPlayerInviteRepository, TeamPlayerInviteRepository>();
+        services.AddScoped<IGamePlayerInviteRepository, GamePlayerInviteRepository>();
+        services.AddScoped<IGameTeamInviteRepository, GameTeamInviteRepository>();
 
         CacheSettings? cacheSettings = configuration
            .GetSection(CacheSettings.SectionKey)
@@ -70,6 +88,16 @@ public static class RepositoryExtensions
             // team
             services.AddScoped<TeamPlayerStatusRepository>();
             services.AddScoped<ITeamPlayerStatusRepository, TeamPlayerStatusCacheRepository>();
+
+            // game
+            services.AddScoped<GameStatusRepository>();
+            services.AddScoped<IGameStatusRepository, GameStatusCacheRepository>();
+            services.AddScoped<GamePlayerStatusRepository>();
+            services.AddScoped<IGamePlayerStatusRepository, GamePlayerStatusCacheRepository>();
+            services.AddScoped<GameTeamStatusRepository>();
+            services.AddScoped<IGameTeamStatusRepository, GameTeamStatusCacheRepository>();
+            services.AddScoped<GameTeamIndexRepository>();
+            services.AddScoped<IGameTeamIndexRepository, GameTeamIndexCacheRepository>();
         }
         else
         {
@@ -87,6 +115,12 @@ public static class RepositoryExtensions
 
             // team
             services.AddScoped<ITeamPlayerStatusRepository, TeamPlayerStatusRepository>();
+
+            // game
+            services.AddScoped<IGameStatusRepository, GameStatusRepository>();
+            services.AddScoped<IGamePlayerStatusRepository, GamePlayerStatusRepository>();
+            services.AddScoped<IGameTeamStatusRepository, GameTeamStatusRepository>();
+            services.AddScoped<IGameTeamIndexRepository, GameTeamIndexRepository>();
         }
 
         return services;

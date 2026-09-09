@@ -14,6 +14,8 @@ public class InviteDataDependentExchange
     public DataDependentExchange Data { get; set; } = default!;
 
     public DataDependentExchange Team { get; set; } = default!;
+
+    public DataDependentExchange Game { get; set; } = default!;
 }
 
 public class InviteDomainExchange
@@ -30,6 +32,9 @@ public class InviteTeamDomainExchange
 
 public class InviteGameDomainExchange
 {
+    public DomainExchange<InviteGamePlayerDomainEventsExchange> Player { get; set; } = default!;
+
+    public DomainExchange<InviteGameTeamDomainEventsExchange> Team { get; set; } = default!;
 }
 
 public class InviteTeamPlayerDomainEventsExchange
@@ -41,8 +46,14 @@ public class InviteTeamPlayerDomainEventsExchange
 
 public class InviteGamePlayerDomainEventsExchange
 {
+    public Exchange Created { get; set; } = default!;
+
+    public Exchange Updated { get; set; } = default!;
 }
 
 public class InviteGameTeamDomainEventsExchange
 {
+    public Exchange Created { get; set; } = default!;
+
+    public Exchange Updated { get; set; } = default!;
 }

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-using SFC.Invite.Application.Common.Dto.Player.Filters;
+using SFC.Invite.Application.Common.Dto.Player.General.Filters;
 using SFC.Invite.Application.Features.Common.Dto.Common;
 using SFC.Invite.Application.Features.Common.Extensions;
 using SFC.Invite.Application.Features.Common.Models.Find.Sorting;

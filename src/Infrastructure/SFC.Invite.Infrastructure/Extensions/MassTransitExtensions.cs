@@ -8,12 +8,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using SFC.Game.Messages.Commands.Game.General;
+using SFC.Game.Messages.Commands.Game.Player;
+using SFC.Game.Messages.Commands.Game.Team.General;
 using SFC.Identity.Messages.Commands.User;
 using SFC.Invite.Infrastructure.Extensions;
 using SFC.Invite.Infrastructure.Settings.RabbitMq;
 using SFC.Invite.Messages.Commands.Common;
+using SFC.Invite.Messages.Commands.Invite.Game.Player;
+using SFC.Invite.Messages.Commands.Invite.Game.Team;
 using SFC.Invite.Messages.Commands.Invite.Team.Player;
 using SFC.Invite.Messages.Events.Invite.Data;
+using SFC.Invite.Messages.Events.Invite.Game.Player;
+using SFC.Invite.Messages.Events.Invite.Game.Team;
 using SFC.Invite.Messages.Events.Invite.Team.Player;
 using SFC.Player.Messages.Commands.Player;
 using SFC.Team.Messages.Commands.Team.General;
@@ -78,10 +85,30 @@ public static class MassTransitExtensions
         configure.AddExchange<TeamPlayerInviteUpdated>(exchangesSettings.Invite.Value.Domain.Team.Player.Events.Updated,
             context => Enum.GetName(typeof(InviteStatusEnum), context.Message.Invite.StatusId));
 
+        // "sfc.invite.game.player.created"
+        configure.AddExchange<GamePlayerInviteCreated>(exchangesSettings.Invite.Value.Domain.Game.Player.Events.Created);
+
+        // "sfc.invite.game.player.updated"
+        configure.AddExchange<GamePlayerInviteUpdated>(exchangesSettings.Invite.Value.Domain.Game.Player.Events.Updated,
+            context => Enum.GetName(typeof(InviteStatusEnum), context.Message.Invite.StatusId));
+
+        // "sfc.invite.game.team.created"
+        configure.AddExchange<GameTeamInviteCreated>(exchangesSettings.Invite.Value.Domain.Game.Team.Events.Created);
+
+        // "sfc.invite.game.team.updated"
+        configure.AddExchange<GameTeamInviteUpdated>(exchangesSettings.Invite.Value.Domain.Game.Team.Events.Updated,
+            context => Enum.GetName(typeof(InviteStatusEnum), context.Message.Invite.StatusId));
+
         if (environment.IsDevelopment())
         {
             // "sfc.invite.team.player.seed"
             configure.AddExchange<SeedTeamPlayerInvites>(exchangesSettings.Invite.Value.Domain.Team.Player.Seed.Seed, exchangesSettings.Invite.Key);
+
+            // "sfc.invite.game.player.seed"
+            configure.AddExchange<SeedGamePlayerInvites>(exchangesSettings.Invite.Value.Domain.Game.Player.Seed.Seed, exchangesSettings.Invite.Key);
+
+            // "sfc.invite.game.team.seed"
+            configure.AddExchange<SeedGameTeamInvites>(exchangesSettings.Invite.Value.Domain.Game.Team.Seed.Seed, exchangesSettings.Invite.Key);
         }
     }
 
@@ -89,9 +116,13 @@ public static class MassTransitExtensions
     {
         EndpointConvention.Map<SFC.Invite.Messages.Commands.Data.RequireData>(exchangesSettings.Invite.Value.Data.Dependent.Data.RequireInitialize.GetExchangeEndpointUri());
 
+        EndpointConvention.Map<SFC.Invite.Messages.Commands.Game.Data.RequireData>(exchangesSettings.Invite.Value.Data.Dependent.Game.RequireInitialize.GetExchangeEndpointUri());
+
         EndpointConvention.Map<SFC.Invite.Messages.Commands.Team.Data.RequireData>(exchangesSettings.Invite.Value.Data.Dependent.Team.RequireInitialize.GetExchangeEndpointUri());
 
         EndpointConvention.Map<SFC.Team.Messages.Commands.Invite.Data.InitializeData>(exchangesSettings.Team.Value.Data.Dependent.Invite.Initialize.GetExchangeEndpointUri());
+
+        EndpointConvention.Map<SFC.Game.Messages.Commands.Invite.Data.InitializeData>(exchangesSettings.Game.Value.Data.Dependent.Invite.Initialize.GetExchangeEndpointUri());
 
         if (environment.IsDevelopment())
         {
@@ -106,6 +137,15 @@ public static class MassTransitExtensions
 
             // "sfc.team.player.seed.require"
             EndpointConvention.Map<RequireTeamPlayersSeed>(exchangesSettings.Team.Value.Domain.Player.Seed.RequireSeed.GetExchangeEndpointUri());
+
+            // "sfc.game.games.seed.require"
+            EndpointConvention.Map<RequireGamesSeed>(exchangesSettings.Game.Value.Domain.Game.Seed.RequireSeed.GetExchangeEndpointUri());
+
+            // "sfc.game.player.seed.require"
+            EndpointConvention.Map<RequireGamePlayersSeed>(exchangesSettings.Game.Value.Domain.Player.Seed.RequireSeed.GetExchangeEndpointUri());
+
+            // "sfc.game.team.seed.require"
+            EndpointConvention.Map<RequireGameTeamsSeed>(exchangesSettings.Game.Value.Domain.Team.Team.Seed.RequireSeed.GetExchangeEndpointUri());
         }
     }
 

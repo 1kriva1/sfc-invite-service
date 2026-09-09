@@ -24,8 +24,6 @@ public interface ITeamDbContext : IDbContext
 
     IQueryable<TeamPlayer> TeamPlayers { get; }
 
-    IQueryable<TeamPlayerInvite> TeamPlayerInvites { get; }
-
     #endregion General
 
     #region Data

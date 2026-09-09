@@ -107,14 +107,14 @@ public class TeamPlayerInvitesController : ApiControllerBase
     /// <response code="401">Returns when **failed** authentication.</response>
     /// <response code="403">Returns when **failed** authorization.</response>
     /// <response code="409">Returns when **flow validation** errors.</response>
-    [HttpPost("Teams/{teamId}")]
+    [HttpPost("Teams/{teamId}/Players")]
     [Authorize(Policy.OwnTeam)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BaseErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(BaseResponse), StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(BaseResponse), StatusCodes.Status409Conflict)]
-    public async Task<ActionResult<CreateTeamPlayerInvitesResponse>> CreateTeamPlayerInvitesAsync(
+    public async Task<ActionResult<CreateTeamPlayerInvitesResponse>> CreatesTeamPlayerInviteAsync(
         [FromRoute] long teamId, [FromBody] CreateTeamPlayerInvitesRequest request)
     {
         CreateTeamPlayerInvitesCommand command = Mapper.Map<CreateTeamPlayerInvitesCommand>(request)

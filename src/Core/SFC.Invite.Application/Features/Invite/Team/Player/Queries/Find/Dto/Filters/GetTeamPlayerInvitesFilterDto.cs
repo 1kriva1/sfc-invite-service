@@ -1,4 +1,4 @@
-﻿using SFC.Invite.Application.Common.Dto.Player.Filters;
+﻿using SFC.Invite.Application.Common.Dto.Player.General.Filters;
 
 namespace SFC.Invite.Application.Features.Invite.Team.Player.Queries.Find.Dto.Filters;
 public class GetTeamPlayerInvitesFilterDto

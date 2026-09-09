@@ -1,4 +1,4 @@
-﻿using SFC.Invite.Application.Common.Dto.Player.Filters;
+﻿using SFC.Invite.Application.Common.Dto.Player.General.Filters;
 using SFC.Invite.Application.Common.Mappings.Interfaces;
 
 namespace SFC.Invite.Api.Infrastructure.Models.Player.Find.Filters;

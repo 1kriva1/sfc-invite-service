@@ -31,6 +31,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.IdentityModel.Protocols" Version="8.14.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.14.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
@@ -39,11 +41,6 @@
     <ProjectReference Include="..\..\Core\SFC.Invite.Application\SFC.Invite.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SFC.Invite.Infrastructure.Persistence\SFC.Invite.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SFC.Invite.Infrastructure\SFC.Invite.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infrastructure\Models\Invite\Game\Team\" />
-    <Folder Include="Infrastructure\Models\Invite\Game\Player\" />
   </ItemGroup>
 
   <ItemGroup>

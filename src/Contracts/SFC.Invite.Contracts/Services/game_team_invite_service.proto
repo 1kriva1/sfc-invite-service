@@ -1,0 +1,15 @@
+﻿syntax = "proto3";
+
+package sfc_invite;
+
+import "Messages/Invite/Game/Team/Get/get_game_team_invite_request.proto";
+import "Messages/Invite/Game/Team/Get/get_game_team_invite_response.proto";
+import "Messages/Invite/Game/Team/Find/get_game_team_invites_request.proto";
+import "Messages/Invite/Game/Team/Find/get_game_team_invites_response.proto";
+
+option csharp_namespace = "SFC.Invite.Contracts.Services";
+
+service GameTeamInviteService {
+    rpc GetGameTeamInvite(GetGameTeamInviteRequest) returns (GetGameTeamInviteResponse);
+    rpc GetGameTeamInvites(GetGameTeamInvitesRequest) returns (GetGameTeamInvitesResponse);
+}

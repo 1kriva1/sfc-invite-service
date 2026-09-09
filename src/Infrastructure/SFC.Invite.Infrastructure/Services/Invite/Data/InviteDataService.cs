@@ -36,6 +36,14 @@ public class InviteDataService(
         };
     }
 
+    public async Task<GetGameDataModel> GetGameDataAsync()
+    {
+        return new()
+        {
+            InviteStatuses = await _inviteStatusesRepository.ListAllAsync().ConfigureAwait(false)
+        };
+    }
+
     public async Task PublishDataInitializedEventAsync(CancellationToken cancellationToken)
     {
         GetAllInviteDataModel model = await GetAllInviteDataAsync().ConfigureAwait(true);

@@ -6,4 +6,5 @@ option csharp_namespace = "SFC.Invite.Contracts.Messages.Invite.Team.Player.Find
 
 message GetTeamPlayerInvitesFilter
 {
+    int64 team_id = 1;
 }

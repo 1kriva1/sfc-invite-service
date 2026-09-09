@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿
 <Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
@@ -11,6 +11,7 @@
     <DockerComposeProjectName>sfc-invite</DockerComposeProjectName>
     <DockerComposeBaseFilePath>compose.Development</DockerComposeBaseFilePath>
     <DockerComposeEnvFilePath>environments/api/api.Development.env</DockerComposeEnvFilePath>
+    <UserSecretsId>d9000aaa-4c39-45fd-82db-6d4fa223c683</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="global.json" />
