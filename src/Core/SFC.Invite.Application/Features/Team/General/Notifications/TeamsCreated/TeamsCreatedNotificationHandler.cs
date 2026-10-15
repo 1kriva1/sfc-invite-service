@@ -2,7 +2,6 @@
 
 using Microsoft.Extensions.Hosting;
 
-using SFC.Invite.Application.Interfaces.Game.Player;
 using SFC.Invite.Application.Interfaces.Game.Team;
 using SFC.Invite.Application.Interfaces.Metadata;
 using SFC.Invite.Application.Interfaces.Team.Player;
