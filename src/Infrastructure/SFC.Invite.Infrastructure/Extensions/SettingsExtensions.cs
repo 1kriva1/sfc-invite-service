@@ -9,7 +9,7 @@ using SFC.Invite.Infrastructure.Settings.RabbitMq;
 namespace SFC.Invite.Infrastructure.Extensions;
 public static class SettingsExtensions
 {
-    public static bool UseAuthentication(this ConfigurationManager configuration)
+    public static bool UseAuthentication(this IConfiguration configuration)
         => configuration.GetValue<bool>(SettingConstants.Authentication, true);
 
     public static IdentitySettings GetIdentitySettings(this IConfiguration configuration)
