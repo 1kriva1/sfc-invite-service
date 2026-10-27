@@ -630,6 +630,11 @@
             Unique identificator of data type.
             </summary>
         </member>
+        <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Data.Common.DataValueModel.Name">
+            <summary>
+            Name of data type.
+            </summary>
+        </member>
         <member name="P:SFC.Invite.Api.Infrastructure.Models.Invite.Data.Common.DataValueModel.Title">
             <summary>
             Describe data type.
