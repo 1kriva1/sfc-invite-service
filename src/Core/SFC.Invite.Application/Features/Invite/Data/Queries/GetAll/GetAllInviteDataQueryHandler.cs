@@ -21,7 +21,7 @@ public class GetAllInviteDataQueryHandler(IMapper mapper, IInviteDataService inv
 
         return new GetAllInviteDataViewModel
         {
-            InviteStatuses = _mapper.Map<IEnumerable<DataValueDto>>(model.InviteStatuses.Localize())
+            InviteStatuses = _mapper.Map<IEnumerable<DataValueDto>>(model.InviteStatuses).Localize()
         };
     }
 }
